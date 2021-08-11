@@ -1,8 +1,9 @@
 import 'package:builder_pattern/builders/pai_atributos_com_ordem_builder.dart';
 import 'package:builder_pattern/builders/pai_atributos_sem_ordem_builder.dart';
+import 'package:builder_pattern/custom_dio_builder/custom_dio_builder.dart';
 import 'package:builder_pattern/models/filho_model.dart';
 
-void execute() {
+Future<void> execute() async {
   ///Basicamente o Builder é um pattern criacional assim como o Singleton, de forma
   ///que ele serve para facilitar a construção de objetos de uma classe, uma vez
   ///que apenas usando a notação ponto é possível ir trocando os atributos da 
@@ -67,4 +68,33 @@ void execute() {
   //   .builder();
 
   // print(filho5);
+
+  print('------------------\n');
+  print('post');
+
+  final resultPost = await CustomDioBuilder.instance
+    .post()
+    .path('https://jsonplaceholder.typicode.com/posts')
+    .addHeader('Content-type', 'application/json')
+    .params()
+    .data({
+      'title': 'tituloX',
+      'body': 'bodyX',
+      'userId': 1,
+    })
+    .run();
+
+    print(resultPost.data);
+
+  print('------------------\n');
+  print('get com QueryParams');
+
+  final resultGet = await CustomDioBuilder.instance
+    .get()
+    .path('https://jsonplaceholder.typicode.com/posts')
+    .params()
+      .queryParameters()
+        .addQueryParam('userId', 1)
+      .run();
+  print(resultGet.data);
 }

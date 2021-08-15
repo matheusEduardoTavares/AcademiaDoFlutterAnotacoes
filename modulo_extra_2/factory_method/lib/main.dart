@@ -15,6 +15,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
+      navigatorKey: DialogFactory.navigatorKey,
     );
   }
 }
@@ -33,9 +34,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _openDialog() {
     DialogFactory.showAlertDialog(
-      context,
       title: const Text('Título X'),
       content: const Text('Conteúdo X'),
+      // forceIos: true,
       actions: [
         DialogAction(
           child: const Text('Sim'), 

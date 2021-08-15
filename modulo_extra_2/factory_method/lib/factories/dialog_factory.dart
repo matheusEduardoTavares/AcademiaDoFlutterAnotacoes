@@ -8,25 +8,32 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 abstract class DialogFactory {
+  ///[GlobalKey] sempre é custoso para o 
+  ///Flutter, então é interessante criá-la
+  ///uma única vez usando o [static].
+  static final navigatorKey = GlobalKey<NavigatorState>();
 
-  static Future<T?> showAlertDialog<T>(
-    BuildContext context, {
+  static Future<T?> showAlertDialog<T>({
       Widget? title,
       Widget? content,
       List<DialogAction>? actions,
+      bool? forceAndroid = false,
+      bool? forceIos = false,
     }
-  ) {
+  ){
     IDialog dialogData;
 
-    if (Platform.isIOS) {
+    if ((Platform.isIOS || (forceIos ?? false)) && !(forceAndroid ?? true)) {
       dialogData = IosDialog();
     }
-    else {
+    else if((Platform.isAndroid || (forceAndroid ?? false)) && !(forceIos ?? true)) {
+      dialogData = AndroidDialog();
+    } else {
       dialogData = AndroidDialog();
     }
 
     return showDialog<T>(
-      context: context, 
+      context: DialogFactory.navigatorKey.currentState!.overlay!.context, 
       builder: (context) => dialogData.create(
         context, 
         title ?? const Text('Não informado'), 

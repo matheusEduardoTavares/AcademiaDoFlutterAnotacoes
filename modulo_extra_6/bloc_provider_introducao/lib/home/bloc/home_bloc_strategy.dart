@@ -1,0 +1,5 @@
+///StrategyPattern
+
+class HomeBlocStrategy {
+  
+}

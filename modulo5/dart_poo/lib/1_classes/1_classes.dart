@@ -16,8 +16,13 @@ void main(List<String> args) {
       TipoLavagem: ${camisetaNike.tipoDeLavagem()}
   ''');
 
+  print('Camiseta.nome = ${Camiseta.nome}');
+  print('Camiseta.recuperarNome() = ${Camiseta.recuperarNome()}');
+  // Camiseta.nome = 'Camiseta Nike';
+  print('Camiseta.nome = ${Camiseta.nome}');
+
   final camisetaAdidas = Camiseta();
-  camisetaAdidas.cor = 'Preta';
+  camisetaAdidas.cor = 'Verde';
   camisetaAdidas.tamanho = 'G';
   camisetaAdidas.marca = 'Addidas';
 

@@ -1,5 +1,12 @@
 class Cliente {
-  String nome;
+  late final String nome;
+  int? idade;
 
-  Cliente({required this.nome});
+  Cliente({required String nome}) {
+    // this.nome = nome;
+  }
+
+  Cliente.comNome({required String nome}) {
+    nome = nome;
+  }
 }

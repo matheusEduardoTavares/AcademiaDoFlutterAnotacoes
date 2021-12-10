@@ -16,4 +16,10 @@ void main(List<String> args) {
   );
 
   print(pessoaSemNome.nome);
+
+  var pessoaFabrica = Pessoa.fabrica(
+    'Rodrigo Rahman'
+  );
+
+  print(pessoaFabrica.nome);
 }

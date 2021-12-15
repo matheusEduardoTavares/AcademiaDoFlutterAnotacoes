@@ -29,7 +29,7 @@ class User {
       id: map['id'] ?? '',
       name: map['name'] ?? '',
       userName: map['username'] ?? '',
-      userTypes: List<UserTypes>.from(map['user_types']?.map((x) => UserTypes.fromMap(x))),
+      userTypes: List<UserTypes>.from((map['user_types'] ?? [])?.map((x) => UserTypes.fromMap(x))),
     );
   }
 

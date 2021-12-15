@@ -27,5 +27,11 @@ Future<void> buscarUser() async {
   if (response.statusCode == 200) {
     var usuarios = User.fromJson(response.body);
     print(usuarios);
+
+    final map = usuarios.toMap();
+    map.update('user_types', (value) => null);
+
+    final user = User.fromMap(map);
+    print('user = $user');
   }
 }

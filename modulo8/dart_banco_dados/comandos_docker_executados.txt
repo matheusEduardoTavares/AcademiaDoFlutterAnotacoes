@@ -1,0 +1,7 @@
+docker exec -it [nome do docker (usar docker ps)] /bin/bash
+mysql -u root -p
+show tables;
+use dart_mysql;
+create table aluno(id int not null primary key auto_increment, nome varchar(200));
+show tables;
+desc aluno;

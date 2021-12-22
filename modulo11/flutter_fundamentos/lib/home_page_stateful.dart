@@ -1,14 +1,25 @@
 import 'package:flutter/material.dart';
 
 class HomePageStateful extends StatefulWidget {
-  const HomePageStateful({Key? key}) : super(key: key);
+  HomePageStateful({Key? key}) : 
+    super(key: key) {
+      debugPrint('HomePageStateful constructor');
+    }
 
   @override
-  State<StatefulWidget> createState() => _HomePageStateful();
+  // ignore: no_logic_in_create_state
+  State<StatefulWidget> createState() {
+    debugPrint('Create State');
+    return _HomePageStateful();
+  }
 
 }
 
 class _HomePageStateful extends State<HomePageStateful> {
+  _HomePageStateful() {
+    debugPrint('_HomePageStateful constructor');
+  }
+
   var texto = 'Estou no StatefulWidget';
 
   @override
@@ -16,6 +27,14 @@ class _HomePageStateful extends State<HomePageStateful> {
     super.initState();
 
     texto = 'Texto alterado pelo initState';
+    debugPrint('initState');
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    debugPrint('didChangeDependencies');
   }
 
   @override 

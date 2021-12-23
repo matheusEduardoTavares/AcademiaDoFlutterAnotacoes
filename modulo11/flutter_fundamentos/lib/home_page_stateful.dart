@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_fundamentos/home_page_stateless.dart';
 
 class HomePageStateful extends StatefulWidget {
   HomePageStateful({Key? key}) : 
@@ -28,6 +29,16 @@ class _HomePageStateful extends State<HomePageStateful> {
 
     texto = 'Texto alterado pelo initState';
     debugPrint('initState');
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      debugPrint('addPostFrameCallback');
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => HomePageStateless(),
+        ),
+      );
+    });
+
+    debugPrint('Fim do initState');
   }
 
   @override
@@ -41,19 +52,21 @@ class _HomePageStateful extends State<HomePageStateful> {
   Widget build(BuildContext context) {
     debugPrint('Buildando o HomePageStatefull');
     return Scaffold(
-      appBar: AppBar(),
-      body: Column(
-        children: [
-          Text(texto),
-          TextButton(
-            onPressed: () {
-              setState(() {
-                texto = 'Alterei o texto do StatefulWidget';
-              });
-            },
-            child: const Text('Alterei o texto do StatefulWidget'),
-          ),
-        ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(texto),
+            TextButton(
+              onPressed: () {
+                setState(() {
+                  texto = 'Alterei o texto do StatefulWidget';
+                });
+              },
+              child: const Text('Alterei o texto do StatefulWidget'),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -5,58 +5,88 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Nossa primeira AppBar'),
-          backgroundColor: Colors.green,
-          actions: [
-            IconButton(
-              onPressed: () {
+    // return SafeArea(
+    //   child: Scaffold(
+    //     appBar: AppBar(
+    //       title: const Text('Nossa primeira AppBar'),
+    //       backgroundColor: Colors.green,
+    //       actions: [
+    //         IconButton(
+    //           onPressed: () {
                 
-              }, 
-              icon: const Icon(Icons.add_link_outlined)
-            ),
-            IconButton(
-              onPressed: () {
+    //           }, 
+    //           icon: const Icon(Icons.add_link_outlined)
+    //         ),
+    //         IconButton(
+    //           onPressed: () {
 
-              }, 
-              icon: const Icon(Icons.airplanemode_inactive_outlined)
-            ),
-            IconButton(
-              onPressed: () {
+    //           }, 
+    //           icon: const Icon(Icons.airplanemode_inactive_outlined)
+    //         ),
+    //         IconButton(
+    //           onPressed: () {
 
-              }, 
-              icon: const Icon(Icons.airline_seat_individual_suite_rounded)
-            ),
-          ],
-        ),
-        body: const Center(
-          child: Text(
-            'Nossa Home Page'
-          ),
-        ),
-        drawer: const Drawer(
-          child: Center(
-            child: Text(
-              'Drawer aberta'
-            ),
-          ),
-        ),
-        endDrawer: const Drawer(
-          child: Center(
-            child: Text(
-              'Drawer end'
-            ),
-          ),
-        ),
-      ),
-    );
+    //           }, 
+    //           icon: const Icon(Icons.airline_seat_individual_suite_rounded)
+    //         ),
+    //       ],
+    //     ),
+    //     body: const Center(
+    //       child: Text(
+    //         'Nossa Home Page'
+    //       ),
+    //     ),
+    //     drawer: const Drawer(
+    //       child: Center(
+    //         child: Text(
+    //           'Drawer aberta'
+    //         ),
+    //       ),
+    //     ),
+    //     endDrawer: const Drawer(
+    //       child: Center(
+    //         child: Text(
+    //           'Drawer end'
+    //         ),
+    //       ),
+    //     ),
+    //   ),
+    // );
 
     // return const Center(
     //   child: Text(
     //     'Nossa Home Page'
     //   ),
     // );
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('HomePage'),
+      ),
+      body: Center(
+        child: Container(
+          width: 200,
+          height: 200,
+          margin: const EdgeInsets.all(10.0),
+          padding: const EdgeInsets.all(10),
+          decoration: const BoxDecoration(
+            color: Colors.red,
+            borderRadius: BorderRadius.all(Radius.circular(100)),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black,
+                blurRadius: 20,
+                offset: Offset(10, 10),
+              ),
+              BoxShadow(
+                color: Colors.green,
+                blurRadius: 20,
+                offset: Offset(-10, -10),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

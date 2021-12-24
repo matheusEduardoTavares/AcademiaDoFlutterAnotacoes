@@ -61,30 +61,48 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('HomePage'),
+        title: const Text(
+          'Nossa primeira AppBar',
+          style: TextStyle(
+            fontFamily: 'Tourney'
+          ),
+        ),
       ),
       body: Center(
-        child: Container(
-          width: 200,
-          height: 200,
-          margin: const EdgeInsets.all(10.0),
-          padding: const EdgeInsets.all(10),
-          decoration: const BoxDecoration(
-            color: Colors.red,
-            borderRadius: BorderRadius.all(Radius.circular(100)),
-            boxShadow: [
-              BoxShadow(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'Academia do Flutter Custom Font',
+              style: TextStyle(
+                fontFamily: 'Tourney',
                 color: Colors.black,
-                blurRadius: 20,
-                offset: Offset(10, 10),
+                fontSize: 40
               ),
-              BoxShadow(
-                color: Colors.green,
-                blurRadius: 20,
-                offset: Offset(-10, -10),
-              )
-            ],
-          ),
+            ),
+            Container(
+              width: 200,
+              height: 200,
+              margin: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(10),
+              decoration: const BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.all(Radius.circular(100)),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black,
+                    blurRadius: 20,
+                    offset: Offset(10, 10),
+                  ),
+                  BoxShadow(
+                    color: Colors.green,
+                    blurRadius: 20,
+                    offset: Offset(-10, -10),
+                  )
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

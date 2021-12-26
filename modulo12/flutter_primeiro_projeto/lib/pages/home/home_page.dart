@@ -90,7 +90,53 @@ class HomePage extends StatelessWidget {
               )
             ],
           ),
-          body: Container(),
+          body: Theme(
+            data: Theme.of(context).copyWith(
+              primaryColorDark: Colors.blueGrey,
+              elevatedButtonTheme: ElevatedButtonThemeData(
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.black12,
+                )
+              )
+            ),
+            child: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: Text('Botão X'),
+                  ),
+                  ContainerX(),
+                  Container(
+                    height: 100,
+                    width: 100,
+                    color: Theme.of(context).primaryColorDark,
+                  ),
+                  Builder(
+                    builder: (context) => Container(
+                      height: 100,
+                      width: 100,
+                      color: Theme.of(context).primaryColorDark,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
        );
+  }
+}
+
+class ContainerX extends StatelessWidget {
+  const ContainerX({ Key? key }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 100,
+      width: 100,
+      color: Theme.of(context).primaryColorDark,
+    );
   }
 }

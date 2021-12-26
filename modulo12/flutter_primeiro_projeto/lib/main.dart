@@ -30,7 +30,18 @@ class MyApp extends StatelessWidget {
       builder: DevicePreview.appBuilder,
       title: 'Flutter primeiro projeto',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.amber,
+        primaryColorLight: Colors.red,
+        primaryColorDark: Colors.amberAccent,
+        fontFamily: 'Roboto',
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            primary: Colors.green,
+            textStyle: TextStyle(
+              foreground: Paint()..color = Colors.white,
+            ),
+          )
+        ),
       ),
       routes: {
         '/': (_) => HomePage(),

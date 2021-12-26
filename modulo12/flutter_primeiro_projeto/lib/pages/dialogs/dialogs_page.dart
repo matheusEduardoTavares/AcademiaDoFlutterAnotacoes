@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_primeiro_projeto/pages/dialogs/dialog_custom.dart';
 
@@ -51,39 +54,80 @@ class DialogsPage extends StatelessWidget {
                    onPressed: () {
                      showDialog(
                        context: context, 
-                       builder: (_) => AlertDialog(
-                         title: Text('Alert Dialog'),
-                         content: SingleChildScrollView(
-                           child: ListBody(
-                             children: [
-                               Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Text('Deseja realmente salvar???'),
+                       builder: (_) {
+                         if (Platform.isIOS) {
+                           return CupertinoAlertDialog(
+                             title: Text('Alert Dialog'),
+                              content: SingleChildScrollView(
+                                child: ListBody(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Text('Deseja realmente salvar???'),
+                                    ),
+                                  ],
+                                ),
                               ),
-                             ],
-                           ),
-                         ),
-                         actions: [
-                           TextButton(
-                             child: Text('Cancelar'),
-                             onPressed: () {
-                               Navigator.of(context).pop();
-                             },
-                           ),
-                           TextButton(
-                             child: Text('Confirmar'),
-                             onPressed: () {
-                               Navigator.of(context).pop();
-                             },
-                           ),
-                         ],
-                       ),
+                              actions: [
+                                TextButton(
+                                  child: Text('Cancelar'),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                                TextButton(
+                                  child: Text('Confirmar'),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                           );
+                         }
+
+                         return AlertDialog(
+                          title: Text('Alert Dialog'),
+                          content: SingleChildScrollView(
+                            child: ListBody(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(10.0),
+                                  child: Text('Deseja realmente salvar???'),
+                                ),
+                              ],
+                            ),
+                          ),
+                          actions: [
+                            TextButton(
+                              child: Text('Cancelar'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            TextButton(
+                              child: Text('Confirmar'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                       },
                       );
                    },
                    child: Text('AlertDialog'),
                  ),
                  ElevatedButton(
                    onPressed: () async {
+                     if (Platform.isIOS) {
+                       return showModalBottomSheet(
+                         context: context, 
+                         builder: (_) => CupertinoTimerPicker(
+                            onTimerDurationChanged: (_) {},
+                          )
+                        );
+                     }
+
                      final selectedTime = await showTimePicker(
                        context: context, 
                        initialTime: TimeOfDay.now(),

@@ -14,6 +14,7 @@ enum PopupMenuPages {
   leituraJson,
   stack,
   stack2,
+  bottomNavigatorBar,
 }
 
 class HomePage extends StatelessWidget {
@@ -71,6 +72,9 @@ class HomePage extends StatelessWidget {
                     case PopupMenuPages.stack2:
                       Navigator.of(context).pushNamed('/stack2');
                       break;
+                    case PopupMenuPages.bottomNavigatorBar:
+                      Navigator.of(context).pushNamed('/bottomNavigatorBar');
+                      break;
                   }
                 },
                 itemBuilder: (_) => <PopupMenuItem<PopupMenuPages>>[
@@ -125,6 +129,10 @@ class HomePage extends StatelessWidget {
                   PopupMenuItem(
                     value: PopupMenuPages.stack2,
                     child: Text('Stack2'),
+                  ),
+                  PopupMenuItem(
+                    value: PopupMenuPages.bottomNavigatorBar,
+                    child: Text('bottomNavigatorBar'),
                   ),
                 ],
               )

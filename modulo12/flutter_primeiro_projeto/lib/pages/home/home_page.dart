@@ -16,6 +16,7 @@ enum PopupMenuPages {
   stack2,
   bottomNavigatorBar,
   circleAvatar,
+  colors,
 }
 
 class HomePage extends StatelessWidget {
@@ -79,6 +80,9 @@ class HomePage extends StatelessWidget {
                     case PopupMenuPages.circleAvatar:
                       Navigator.of(context).pushNamed('/circleAvatar');
                       break;
+                    case PopupMenuPages.colors:
+                      Navigator.of(context).pushNamed('/colors');
+                      break;
                   }
                 },
                 itemBuilder: (_) => <PopupMenuItem<PopupMenuPages>>[
@@ -141,6 +145,10 @@ class HomePage extends StatelessWidget {
                   PopupMenuItem(
                     value: PopupMenuPages.circleAvatar,
                     child: Text('circleAvatar'),
+                  ),
+                  PopupMenuItem(
+                    value: PopupMenuPages.colors,
+                    child: Text('colors'),
                   ),
                 ],
               )

@@ -12,6 +12,7 @@ enum PopupMenuPages {
   snackbar,
   forms,
   leituraJson,
+  stack,
 }
 
 class HomePage extends StatelessWidget {
@@ -63,6 +64,9 @@ class HomePage extends StatelessWidget {
                     case PopupMenuPages.leituraJson:
                       Navigator.of(context).pushNamed('/leituraJson');
                       break;
+                    case PopupMenuPages.stack:
+                      Navigator.of(context).pushNamed('/stack');
+                      break;
                   }
                 },
                 itemBuilder: (_) => <PopupMenuItem<PopupMenuPages>>[
@@ -109,6 +113,10 @@ class HomePage extends StatelessWidget {
                   PopupMenuItem(
                     value: PopupMenuPages.leituraJson,
                     child: Text('Lendo JSON'),
+                  ),
+                  PopupMenuItem(
+                    value: PopupMenuPages.stack,
+                    child: Text('Stack'),
                   ),
                 ],
               )

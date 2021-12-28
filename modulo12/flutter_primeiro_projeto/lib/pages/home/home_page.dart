@@ -18,6 +18,7 @@ enum PopupMenuPages {
   circleAvatar,
   colors,
   materialBanner,
+  desafio,
 }
 
 class HomePage extends StatelessWidget {
@@ -86,6 +87,9 @@ class HomePage extends StatelessWidget {
                       break;
                     case PopupMenuPages.materialBanner:
                       Navigator.of(context).pushNamed('/materialBanner');
+                      break;
+                    case PopupMenuPages.desafio:
+                      Navigator.of(context).pushNamed('/desafio');
                       break;
                   }
                 },
@@ -157,6 +161,10 @@ class HomePage extends StatelessWidget {
                   PopupMenuItem(
                     value: PopupMenuPages.materialBanner,
                     child: Text('MaterialBanner'),
+                  ),
+                  PopupMenuItem(
+                    value: PopupMenuPages.desafio,
+                    child: Text('Desafio'),
                   ),
                 ],
               )

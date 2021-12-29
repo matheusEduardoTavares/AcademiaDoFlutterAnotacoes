@@ -3,14 +3,14 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 class DatabaseSqlite {
-  Future<void> openConnection() async {
+  Future<Database> openConnection() async {
     final databasePath = await getDatabasesPath();
     final databaseFinalPath = join(databasePath, 'SQLITE_EXAMPLE');
 
     debugPrint(databasePath);
     debugPrint(databaseFinalPath);
 
-    openDatabase(
+    return openDatabase(
       databaseFinalPath,
       version: 2,
       ///Executado sempre que abrir uma nova conexão, e

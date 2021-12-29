@@ -85,7 +85,7 @@ class _ImcSetStatePageState extends State<ImcSetStatePage> {
                   ],
                   validator: (String? value) {
                     if (value == null || value.isEmpty) {
-                      return 'Peso Obrigatório';
+                      return 'Altura Obrigatória';
                     }
                   },
                 ),

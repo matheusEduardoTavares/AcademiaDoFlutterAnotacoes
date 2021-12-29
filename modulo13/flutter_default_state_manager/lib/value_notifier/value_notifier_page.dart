@@ -5,38 +5,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_default_state_manager/widgets/imc_gauge.dart';
 import 'package:intl/intl.dart';
 
-class ImcSetStatePage extends StatefulWidget {
-  const ImcSetStatePage({ Key? key }) : super(key: key);
+class ValueNotifierPage extends StatefulWidget {
+  const ValueNotifierPage({ Key? key }) : super(key: key);
 
   @override
-  State<ImcSetStatePage> createState() => _ImcSetStatePageState();
+  State<ValueNotifierPage> createState() => ValueNotifierPageState();
 }
 
-class _ImcSetStatePageState extends State<ImcSetStatePage> {
+class ValueNotifierPageState extends State<ValueNotifierPage> {
   final _formKey = GlobalKey<FormState>();
   final _pesoEC = TextEditingController();
   final _alturaEC = TextEditingController();
-  var _imc = 0.0;
+  final _imc = ValueNotifier(0.0);
 
   void _calcularIMC({required double peso, required double altura}) {
-    setState(() {
-      _imc = 0.0;
-    });
+    _imc.value = 0.0;
 
     Future.delayed(Duration(seconds: 1), () {
-      setState(() {
-        _imc = peso / pow(altura, 2);
-      });
+      _imc.value = peso / pow(altura, 2);
     });
 
   }
 
   @override
   Widget build(BuildContext context) {
+    debugPrint('------------------------------------------------------');
     debugPrint('Build TELA');
     return Scaffold(
       appBar: AppBar(
-        title: Text('SetState'),
+        title: Text('ValueNotifier'),
       ),
       body: SingleChildScrollView(
         child: Form(
@@ -45,8 +42,15 @@ class _ImcSetStatePageState extends State<ImcSetStatePage> {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: [
-                ImcGauge(
-                  imc: _imc,
+                ValueListenableBuilder<double>(
+                  valueListenable: _imc,
+                  builder: (_, imcValue, __) {
+                    debugPrint('------------------------------------------------------');
+                    debugPrint('Build ValueListenableBuilder');
+                    return ImcGauge(
+                      imc: imcValue,
+                    );
+                  },
                 ),
                 SizedBox(height: 20,),
                 TextFormField(

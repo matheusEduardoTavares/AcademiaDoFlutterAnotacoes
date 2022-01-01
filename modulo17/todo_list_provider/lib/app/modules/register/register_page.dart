@@ -1,10 +1,48 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_list_provider/app/core/ui/theme_extensons.dart';
+import 'package:todo_list_provider/app/core/validators/validators.dart';
 import 'package:todo_list_provider/app/core/widgets/todo_list_field.dart';
 import 'package:todo_list_provider/app/core/widgets/todo_list_logo.dart';
+import 'package:todo_list_provider/app/modules/register/register_controller.dart';
+import 'package:validatorless/validatorless.dart';
 
-class RegisterPage extends StatelessWidget {
+class RegisterPage extends StatefulWidget {
   const RegisterPage({ Key? key }) : super(key: key);
+
+  @override
+  State<RegisterPage> createState() => _RegisterPageState();
+}
+
+class _RegisterPageState extends State<RegisterPage> {
+  final _formKey = GlobalKey<FormState>();
+  final _emailEC = TextEditingController();
+  final _passwordEC = TextEditingController();
+  final _confirmPasswordEC = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<RegisterController>().addListener(() {
+      var controller = context.read<RegisterController>();
+      var success = controller.success;
+      var error = controller.error;
+
+      if (success) {
+        context.read<RegisterController>().removeListener(() {});
+        Navigator.of(context).pop();
+      }
+      else if (error != null && error.isNotEmpty) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            content: Text(error),
+            backgroundColor: Colors.red,
+          )
+        );
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,18 +99,50 @@ class RegisterPage extends StatelessWidget {
               vertical: 20,
             ),
             child: Form(
+              key: _formKey,
               child: Column(
                 children: [
-                  TodoListField(label: 'E-mail'),
+                  TodoListField(
+                    label: 'E-mail',
+                    controller: _emailEC,
+                    validator: Validatorless.multiple([
+                      Validatorless.required('E-mail obrigatório'),
+                      Validatorless.email('E-mail inválido'),
+                    ]),
+                  ),
                   SizedBox(height: 20,),
-                  TodoListField(label: 'Senha', obscureText: true,),
+                  TodoListField(
+                    label: 'Senha', 
+                    obscureText: true,
+                    controller: _passwordEC,
+                    validator: Validatorless.multiple([
+                      Validatorless.required('Senha obrigatória'),
+                      Validatorless.min(6, 'Senha deve ter pelo menos 6 caracteres'),
+                    ]),
+                  ),
                   SizedBox(height: 20,),
-                  TodoListField(label: 'Confirmar Senha', obscureText: true,),
+                  TodoListField(
+                    label: 'Confirmar Senha', 
+                    obscureText: true,
+                    controller: _confirmPasswordEC,
+                    validator: Validatorless.multiple([
+                      Validatorless.required('Confirma Senha obrigatória'),
+                      Validators.compare(_passwordEC, 'Senha diferente de confirma senha')
+                    ]),
+                  ),
                   SizedBox(height: 20,),
                   Align(
                     alignment: Alignment.bottomRight,
                     child: ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        // ignore: unused_local_variable
+                        final formValid = _formKey.currentState?.validate() ?? false;
+                        if (formValid) {
+                          final email = _emailEC.text;
+                          final password = _passwordEC.text;
+                          context.read<RegisterController>().registerUser(email, password);
+                        }
+                      },
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(20),
@@ -91,5 +161,14 @@ class RegisterPage extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _emailEC.dispose();
+    _passwordEC.dispose();
+    _confirmPasswordEC.dispose();
+
+    super.dispose();
   }
 }

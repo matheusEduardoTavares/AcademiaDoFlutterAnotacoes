@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:todo_list_provider/app/core/notifier/default_change_notifier.dart';
 import 'package:todo_list_provider/app/exception/auth_exceptions.dart';
 import 'package:todo_list_provider/app/services/user/user_service.dart';
@@ -9,10 +8,15 @@ class LoginController extends DefaultChangeNotifier {
   }) : _userService = userService;
 
   final UserService _userService;
+  String? infoMessage;
+
+  bool get hasInfo => infoMessage != null;
 
   Future<void> login(String email, String password) async {
     try {
       showLoadingAndResetState();
+      infoMessage = null;
+
       notifyListeners();
       
       final user = await _userService.login(email, password);
@@ -25,6 +29,27 @@ class LoginController extends DefaultChangeNotifier {
       }
     } on AuthExceptions catch (e) {
       setError(e.message);
+    }
+    finally {
+      hideLoading();
+      notifyListeners();
+    }
+  }
+
+  Future<void> forgotPassword(String email) async {
+    try {
+      showLoadingAndResetState();
+      infoMessage = null;
+      notifyListeners();
+      
+      await _userService.forgotPassword(email);
+      infoMessage = 'Reset de senha enviada para seu e-mail';
+    } 
+    on AuthExceptions catch (e) {
+      setError(e.message);
+    }
+    catch (e) {
+      setError('Erro ao resetar senha');
     }
     finally {
       hideLoading();

@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:todo_list_provider/app/exception/auth_exceptions.dart';
 import 'package:todo_list_provider/app/repositories/user/user_repository.dart';
@@ -62,6 +63,27 @@ class UserRepositoryImpl implements UserRepository {
       throw AuthExceptions(
         message: e.message ?? 'Erro ao realizar login',
       );
+    }
+  }
+
+  @override
+  Future<void> forgotPassword(String email) async {
+    try {
+      var loginMethods = await _firebaseAuth.fetchSignInMethodsForEmail(email);
+      
+      if (loginMethods.contains('password')) {
+        await _firebaseAuth.sendPasswordResetEmail(email: email);
+      }
+      else if (loginMethods.contains('google')){
+        throw AuthExceptions(message: 'Cadastro realizado com o google, não pode ser resetado a senha');
+      }
+      else {
+        throw AuthExceptions(message: 'E-mail não cadastrado');
+      }
+    } on PlatformException catch (e, s) {
+      debugPrint(e.toString());
+      debugPrint(s.toString());
+      throw AuthExceptions(message: 'Erro ao resetar senha');
     }
   }
   

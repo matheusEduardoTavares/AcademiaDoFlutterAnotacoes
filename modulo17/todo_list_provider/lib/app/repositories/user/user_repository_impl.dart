@@ -1,5 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/services.dart';
 import 'package:todo_list_provider/app/exception/auth_exceptions.dart';
 import 'package:todo_list_provider/app/repositories/user/user_repository.dart';
 
@@ -35,6 +35,33 @@ class UserRepositoryImpl implements UserRepository {
       else {
         throw AuthExceptions(message: err.message ?? 'Erro ao registrar usuário');
       }
+    }
+  }
+
+  @override
+  Future<User?> login(String email, String password) async {
+    try {
+      final userCredential = await _firebaseAuth.signInWithEmailAndPassword(
+        email: email, 
+        password: password
+      );
+      
+      return userCredential.user;
+    } on PlatformException catch (e) {
+      throw AuthExceptions(
+        message: e.message ?? 'Erro ao realizar login',
+      );
+    }
+    on FirebaseAuthException catch (e) {
+      if (e.code == 'wrong-password') {
+        throw AuthExceptions(
+          message: 'Login ou senha inválidos',
+        );
+      }
+
+      throw AuthExceptions(
+        message: e.message ?? 'Erro ao realizar login',
+      );
     }
   }
   

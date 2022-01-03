@@ -37,7 +37,6 @@ class TodoListField extends StatelessWidget {
           validator: validator,
           decoration: InputDecoration(
             labelText: label,
-            alignLabelWithHint: true,
             labelStyle: TextStyle(
               fontSize: 15,
               color: Colors.black,

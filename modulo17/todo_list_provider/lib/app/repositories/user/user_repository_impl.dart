@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:todo_list_provider/app/exception/auth_exceptions.dart';
 import 'package:todo_list_provider/app/repositories/user/user_repository.dart';
 
@@ -85,6 +86,51 @@ class UserRepositoryImpl implements UserRepository {
       debugPrint(s.toString());
       throw AuthExceptions(message: 'Erro ao resetar senha');
     }
+  }
+
+  @override
+  Future<User?> googleLogin() async {
+    List<String>? loginMethods;
+    try {
+      final googleSignIn = GoogleSignIn();
+      final googleUser = await googleSignIn.signIn();
+      if (googleUser != null) {
+        loginMethods = await _firebaseAuth
+          .fetchSignInMethodsForEmail(googleUser.email);
+      
+        if (loginMethods.contains('password')) {
+          throw AuthExceptions(message: 'Você utilizou o e-mail para cadastro no TodoList, caso tenha esquecido sua senha por favor clique no link esqueci minha senha');
+        }
+        else {
+          final googleAuth = await googleUser.authentication;
+          final firebaseCredential = GoogleAuthProvider.credential(
+            accessToken: googleAuth.accessToken,
+            idToken: googleAuth.idToken,
+          );
+      
+          var userCredential = await _firebaseAuth.signInWithCredential(
+            firebaseCredential,
+          );
+      
+          return userCredential.user;
+        }
+      }
+    } on FirebaseAuthException catch (e, s) {
+      debugPrint(e.toString());
+      debugPrint(s.toString());
+
+      if (e.code == 'account-exists-with-different-credential') {
+        throw AuthExceptions(message: 'Login inválido. Você se registrou no TodoList com os seguintes provedores: ${loginMethods?.join(',')}');
+      }
+
+      throw AuthExceptions(message: 'Erro ao realizar login');
+    }
+  }
+
+  @override
+  Future<void> googleLogout() async {
+    await GoogleSignIn().signOut();
+    await _firebaseAuth.signOut();
   }
   
 }

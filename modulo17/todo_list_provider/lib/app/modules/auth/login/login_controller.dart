@@ -23,12 +23,12 @@ class LoginController extends DefaultChangeNotifier {
         success();
       }
       else {
-        await _userService.googleLogout();
+        await _userService.logout();
         setError('Erro ao realizar login com o Google');
       }
     }
     on AuthExceptions catch (e) {
-      await _userService.googleLogout();
+      await _userService.logout();
       setError(e.message);
     }
     finally {

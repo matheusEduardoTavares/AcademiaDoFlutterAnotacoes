@@ -20,6 +20,8 @@ class AuthProvider extends ChangeNotifier {
   User? get user => _firebaseAuth.currentUser;
 
   void loadListener() {
+    ///FirebaseAuth.instance.currentUser.reload() faz com que esse listen
+    ///seja chamado
     _firebaseAuth.userChanges().listen((_) {
       notifyListeners();
     });

@@ -2,12 +2,14 @@ import 'package:todo_list_provider/app/core/database/migrations/migration.dart';
 import 'package:todo_list_provider/app/core/database/migrations/migration_v1.dart';
 import 'package:todo_list_provider/app/core/database/migrations/migration_v2.dart';
 import 'package:todo_list_provider/app/core/database/migrations/migration_v3.dart';
+import 'package:todo_list_provider/app/core/database/migrations/migration_v4.dart';
 
 class SqliteMigrationFactory {
   List<Migration> getCreateMigration() => [
     MigrationV1(),
     MigrationV2(),
     MigrationV3(),
+    MigrationV4(),
   ];
 
   List<Migration> getUpgradeMigration(int version) {
@@ -20,12 +22,17 @@ class SqliteMigrationFactory {
     if (version == 1) {
       migrations.add(MigrationV2());
       migrations.add(MigrationV3());
+      migrations.add(MigrationV4());
     }
     ///Agora se a versão atual for a 3 e a do 
     ///usuário a 2, faltou executar só a migration
     ///3
     else if (version == 2) {
       migrations.add(MigrationV3());
+      migrations.add(MigrationV4());
+    }
+    else if (version == 3) {
+      migrations.add(MigrationV4());
     }
 
     return migrations;

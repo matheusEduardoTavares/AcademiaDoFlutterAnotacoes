@@ -14,7 +14,7 @@ class HomeModule extends TodoListModule {
     },
     bindings: [
       Provider<TasksRepository>(
-        create: (context) => TasksRepositoryImpl(sqliteConnectionFactory: context.read())
+        create: (context) => TasksRepositoryImpl(sqliteConnectionFactory: context.read(), firebaseAuth: context.read())
       ),
       Provider<TasksService>(
         create: (context) => TasksServiceImpl(tasksRepository: context.read())

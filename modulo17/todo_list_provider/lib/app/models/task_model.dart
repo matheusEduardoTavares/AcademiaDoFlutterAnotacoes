@@ -6,12 +6,14 @@ class TaskModel {
     required this.description,
     required this.dateTime,
     required this.finished,
+    required this.firebaseUserUID,
   });
 
   final int id;
   final String description;
   final DateTime dateTime;
   final bool finished;  
+  final String firebaseUserUID;
 
   Map<String, dynamic> toMap() {
     return {
@@ -19,6 +21,7 @@ class TaskModel {
       'descricao': description,
       'data_hora': dateTime.toIso8601String(),
       'finalizado': finished,
+      'firebaseUserUID': firebaseUserUID,
     };
   }
 
@@ -28,6 +31,7 @@ class TaskModel {
       description: map['descricao'] ?? '',
       dateTime: DateTime.parse(map['data_hora']),
       finished: map['finalizado'] == 1,
+      firebaseUserUID: map['firebaseUserUID'],
     );
   }
 
@@ -40,12 +44,14 @@ class TaskModel {
     String? description,
     DateTime? dateTime,
     bool? finished,
+    String? firebaseUserUID,
   }) {
     return TaskModel(
       id: id ?? this.id,
       description: description ?? this.description,
       dateTime: dateTime ?? this.dateTime,
       finished: finished ?? this.finished,
+      firebaseUserUID: firebaseUserUID ?? this.firebaseUserUID,
     );
   }
 }

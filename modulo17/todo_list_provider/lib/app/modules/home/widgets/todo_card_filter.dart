@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_list_provider/app/core/ui/theme_extensons.dart';
 import 'package:todo_list_provider/app/models/task_filter_enum.dart';
 import 'package:todo_list_provider/app/models/total_tasks_model.dart';
+import 'package:todo_list_provider/app/modules/home/home_controller.dart';
 
 class TodoCardFilter extends StatelessWidget {
   const TodoCardFilter({ 
@@ -31,63 +33,68 @@ class TodoCardFilter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      constraints: BoxConstraints(
-        minHeight: 120,
-        maxWidth: 150
-      ),
-      decoration: BoxDecoration(
-        color: selected ? context.primaryColor : Colors.white,
-        border: Border.all(
-          width: 1,
-          color: Colors.grey.withOpacity(.8),
+    return InkWell(
+      borderRadius: BorderRadius.circular(30),
+      onTap: () => 
+        context.read<HomeController>().findTasks(filter: taskFilter),
+      child: Container(
+        constraints: BoxConstraints(
+          minHeight: 120,
+          maxWidth: 150
         ),
-        borderRadius: BorderRadius.circular(30),
-      ),
-      margin: EdgeInsets.only(right: 10),
-      padding: EdgeInsets.all(20),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // SizedBox(
-          //   height: 21,
-          //   width: 21,
-          //   child: CircularProgressIndicator(
+        decoration: BoxDecoration(
+          color: selected ? context.primaryColor : Colors.white,
+          border: Border.all(
+            width: 1,
+            color: Colors.grey.withOpacity(.8),
+          ),
+          borderRadius: BorderRadius.circular(30),
+        ),
+        margin: EdgeInsets.only(right: 10),
+        padding: EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // SizedBox(
+            //   height: 21,
+            //   width: 21,
+            //   child: CircularProgressIndicator(
 
-          //   ),
-          // ),
-          Text(
-            '${totalTasksModel?.totalTasks ?? 0} TASKS',
-            style: context.titleStyle.copyWith(
-              fontSize: 10,
-              color: selected ? Colors.white : Colors.grey,
-            )
-          ),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: selected ? Colors.white : Colors.black,
+            //   ),
+            // ),
+            Text(
+              '${totalTasksModel?.totalTasks ?? 0} TASKS',
+              style: context.titleStyle.copyWith(
+                fontSize: 10,
+                color: selected ? Colors.white : Colors.grey,
+              )
             ),
-          ),
-          TweenAnimationBuilder<double>(
-            duration: Duration(seconds: 1),
-            tween: Tween(
-              begin: 0.0,
-              end: _getPercentFinish(),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: selected ? Colors.white : Colors.black,
+              ),
             ),
-            builder: (context, value, child) {
-              return LinearProgressIndicator(
-                backgroundColor: selected ? context.primaryColorLight : Colors.grey.shade300,
-                valueColor: AlwaysStoppedAnimation<Color>(
-                  selected ? Colors.white : context.primaryColor,
-                ),
-                value: value,
-              );
-            },
-          ),
-        ],
+            TweenAnimationBuilder<double>(
+              duration: Duration(seconds: 1),
+              tween: Tween(
+                begin: 0.0,
+                end: _getPercentFinish(),
+              ),
+              builder: (context, value, child) {
+                return LinearProgressIndicator(
+                  backgroundColor: selected ? context.primaryColorLight : Colors.grey.shade300,
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                    selected ? Colors.white : context.primaryColor,
+                  ),
+                  value: value,
+                );
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

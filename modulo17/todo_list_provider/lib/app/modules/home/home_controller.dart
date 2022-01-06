@@ -18,6 +18,8 @@ class HomeController extends DefaultChangeNotifier{
   TotalTasksModel? weekTotalTasks;
   List<TaskModel> allTasks = [];
   List<TaskModel> filteredTasks = [];
+  DateTime? initialDateOfWeek;
+  DateTime? selectedDate;
 
   var filterSelected = TaskFilterEnum.today;
 
@@ -67,6 +69,7 @@ class HomeController extends DefaultChangeNotifier{
         break;
       case TaskFilterEnum.week:
         final weekModel = await _tasksService.getWeek();
+        initialDateOfWeek = weekModel.startDate;
         tasks = weekModel.tasks;
         break;
     }
@@ -74,10 +77,21 @@ class HomeController extends DefaultChangeNotifier{
     filteredTasks = tasks;
     allTasks = tasks;
 
+    if (filter == TaskFilterEnum.week && initialDateOfWeek != null) {
+      filterByDay(initialDateOfWeek!);
+    }
+
     ///Evita o erro: 'package:flutter/src/widgets/overlay.dart': Failed assertion: line 147 pos 12: '_overlay != null': is not true
     await Future.delayed(Duration(milliseconds: 500));
 
     hideLoading();
+    notifyListeners();
+  }
+
+  Future<void> filterByDay(DateTime date) async {
+    selectedDate = date;
+    filteredTasks = allTasks.where((task) => task.dateTime == date).toList();
+
     notifyListeners();
   }
 

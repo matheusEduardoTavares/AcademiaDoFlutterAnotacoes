@@ -20,6 +20,7 @@ class HomeController extends DefaultChangeNotifier{
   List<TaskModel> filteredTasks = [];
   DateTime? initialDateOfWeek;
   DateTime? selectedDate;
+  bool showFinishingTasks = false;
 
   var filterSelected = TaskFilterEnum.today;
 
@@ -89,8 +90,9 @@ class HomeController extends DefaultChangeNotifier{
       selectedDate = null;
     }
 
-    ///Evita o erro: 'package:flutter/src/widgets/overlay.dart': Failed assertion: line 147 pos 12: '_overlay != null': is not true
-    await Future.delayed(Duration(milliseconds: 500));
+    if (!showFinishingTasks) {
+      filteredTasks = filteredTasks.where((task) => !task.finished).toList();
+    }
 
     hideLoading();
     notifyListeners();
@@ -108,4 +110,22 @@ class HomeController extends DefaultChangeNotifier{
     await loadTotalTasks();
     notifyListeners();
   }
-}
+
+  Future<void> checkOrUncheckTask(TaskModel task) async {
+    showLoadingAndResetState();
+    notifyListeners();
+
+    final taskUpdate = task.copyWith(
+      finished: !task.finished,
+    );
+
+    await _tasksService.checkOrUncheckTask(taskUpdate);
+    hideLoading();
+    refreshPage();
+  }
+
+  void showOrHideFinishingTasks() {
+    showFinishingTasks = !showFinishingTasks;
+    refreshPage();
+  }
+} 

@@ -77,8 +77,16 @@ class HomeController extends DefaultChangeNotifier{
     filteredTasks = tasks;
     allTasks = tasks;
 
-    if (filter == TaskFilterEnum.week && initialDateOfWeek != null) {
-      filterByDay(initialDateOfWeek!);
+    if (filter == TaskFilterEnum.week) {
+      if (selectedDate != null) {
+        filterByDay(selectedDate!);
+      }
+      else if (initialDateOfWeek != null) {
+        filterByDay(initialDateOfWeek!);
+      }
+    }
+    else {
+      selectedDate = null;
     }
 
     ///Evita o erro: 'package:flutter/src/widgets/overlay.dart': Failed assertion: line 147 pos 12: '_overlay != null': is not true

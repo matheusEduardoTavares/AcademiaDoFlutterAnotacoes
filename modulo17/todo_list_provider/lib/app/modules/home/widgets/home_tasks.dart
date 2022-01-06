@@ -32,6 +32,7 @@ class HomeTasks extends StatelessWidget {
               (controller) => controller.filteredTasks
             ).map((t) => Task(
               model: t,
+              dismissTask: () => context.read<HomeController>().deleteTask(t),
             )).toList(),
           ),
         ],

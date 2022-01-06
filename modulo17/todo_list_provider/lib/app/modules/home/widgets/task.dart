@@ -8,48 +8,65 @@ class Task extends StatelessWidget {
   Task({ 
     Key? key,
     required this.model,
+    required this.dismissTask,
   }) : super(key: key);
 
   final TaskModel model;
   final _dateFormat = DateFormat('dd/MM/y');
+  final VoidCallback dismissTask;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(color: Colors.grey),
-        ],
+    return Dismissible(
+      background: Container(
+        decoration: BoxDecoration(
+          color: Colors.red,
+          borderRadius: BorderRadius.circular(20),
+        ),
+        margin: EdgeInsets.symmetric(
+          vertical: 5,
+        ),
       ),
-      margin: EdgeInsets.symmetric(
-        vertical: 5,
-      ),
-      child: IntrinsicHeight(
-        child: ListTile(
-          leading: Checkbox(
-            value: model.finished,
-            onChanged: (value) {
-              context.read<HomeController>().checkOrUncheckTask(model);
-            },
-          ),
-          title: Text(
-            model.description,
-            style: TextStyle(
-              decoration: model.finished ? TextDecoration.lineThrough : null,
+      onDismissed: (_) {
+        dismissTask();
+      },
+      key: ValueKey(model.id.toString()),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          boxShadow: [
+            BoxShadow(color: Colors.grey),
+          ],
+        ),
+        margin: EdgeInsets.symmetric(
+          vertical: 5,
+        ),
+        child: IntrinsicHeight(
+          child: ListTile(
+            leading: Checkbox(
+              value: model.finished,
+              onChanged: (value) {
+                context.read<HomeController>().checkOrUncheckTask(model);
+              },
             ),
-          ),
-          contentPadding: EdgeInsets.all(8.0),
-          subtitle: Text(
-            _dateFormat.format(model.dateTime),
-            style: TextStyle(
-              decoration: model.finished ? TextDecoration.lineThrough : null,
+            title: Text(
+              model.description,
+              style: TextStyle(
+                decoration: model.finished ? TextDecoration.lineThrough : null,
+              ),
             ),
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-            side: BorderSide(width: 1)
+            contentPadding: EdgeInsets.all(8.0),
+            subtitle: Text(
+              _dateFormat.format(model.dateTime),
+              style: TextStyle(
+                decoration: model.finished ? TextDecoration.lineThrough : null,
+              ),
+            ),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+              side: BorderSide(width: 1)
+            ),
           ),
         ),
       ),

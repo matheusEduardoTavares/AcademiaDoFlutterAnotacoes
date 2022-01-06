@@ -1,7 +1,8 @@
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_overlay_loader/flutter_overlay_loader.dart';
 import 'package:todo_list_provider/app/core/notifier/default_change_notifier.dart';
 import 'package:todo_list_provider/app/core/ui/messages.dart';
+import 'package:todo_list_provider/app/core/ui/theme_extensons.dart';
 
 class DefaultListenerNotifier {
   DefaultListenerNotifier({
@@ -26,6 +27,15 @@ class DefaultListenerNotifier {
         Loader.show(context);
       } else {
         Loader.hide();
+      }
+
+      final snackBarMessage = changeNotifier.snackbarMessage;
+      if (snackBarMessage?.isNotEmpty ?? false) {
+        ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(
+            content: Text(snackBarMessage!),
+            backgroundColor: context.primaryColor,
+          ));
       }
 
       if (changeNotifier.hasError) {

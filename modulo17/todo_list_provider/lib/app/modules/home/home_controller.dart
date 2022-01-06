@@ -128,4 +128,26 @@ class HomeController extends DefaultChangeNotifier{
     showFinishingTasks = !showFinishingTasks;
     refreshPage();
   }
+
+  Future<void> deleteTask(TaskModel task) async {
+    showLoadingAndResetState();
+    notifyListeners();
+
+    try {
+      await _tasksService.deleteTask(task);
+      await refreshPage();
+
+      setSnackbarMessage('Task ${task.id} excluída');
+      notifyListeners();
+      
+      setSnackbarMessage(null);
+    }
+    catch (err) {
+      setError('Houve um erro ao deletar a tarefa');
+    }
+    finally {
+      hideLoading();
+      notifyListeners();
+    }
+  }
 } 

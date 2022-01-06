@@ -64,4 +64,10 @@ class TasksRepositoryImpl implements TasksRepository {
       update todo set finalizado = ? where id = ?
     ''', [finished, task.id]);
   }
+
+  @override
+  Future<void> deleteTask(TaskModel task) async {
+    final conn = await _sqliteConnectionFactory.openConnection();
+    await conn.delete('todo', where: 'id = ?', whereArgs: [task.id]);
+  }
 }

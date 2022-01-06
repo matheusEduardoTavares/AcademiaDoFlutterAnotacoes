@@ -29,7 +29,7 @@ class TasksRepositoryImpl implements TasksRepository {
     final result = await conn.rawQuery('''
       select * from todo 
       where data_hora between ? and ? 
-      order by data_hora'
+      order by data_hora
     ''', [startFilter.toIso8601String(), endFilter.toIso8601String()]);
 
     return result.map(TaskModel.fromMap).toList();

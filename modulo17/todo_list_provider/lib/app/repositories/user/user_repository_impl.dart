@@ -22,7 +22,7 @@ class UserRepositoryImpl implements UserRepository {
 
       return userCredencial.user;
     }
-    on FirebaseAuthException catch (err, s) {
+    on FirebaseAuthException catch (err) {
       // debugPrint(err.toString());
       // debugPrint(s.toString());
       if (err.code == 'email-already-in-use') {

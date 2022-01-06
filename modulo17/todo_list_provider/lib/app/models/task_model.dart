@@ -17,7 +17,7 @@ class TaskModel {
     return {
       'id': id,
       'descricao': description,
-      'data_hora': dateTime.millisecondsSinceEpoch,
+      'data_hora': dateTime.toIso8601String(),
       'finalizado': finished,
     };
   }
@@ -26,7 +26,7 @@ class TaskModel {
     return TaskModel(
       id: map['id']?.toInt() ?? 0,
       description: map['descricao'] ?? '',
-      dateTime: DateTime.fromMillisecondsSinceEpoch(map['data_hora']),
+      dateTime: DateTime.parse(map['data_hora']),
       finished: map['finalizado'] == 1,
     );
   }

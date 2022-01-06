@@ -6,4 +6,6 @@ class TotalTasksModel {
   
   final int totalTasks;
   final int totalTasksFinish;  
+
+  int get totalTasksUnfinish => totalTasks - totalTasksFinish;
 }

@@ -63,7 +63,7 @@ class TodoCardFilter extends StatelessWidget {
             //   ),
             // ),
             Text(
-              '${totalTasksModel?.totalTasks ?? 0} TASKS',
+              '${totalTasksModel?.totalTasksUnfinish ?? 0} TASKS',
               style: context.titleStyle.copyWith(
                 fontSize: 10,
                 color: selected ? Colors.white : Colors.grey,

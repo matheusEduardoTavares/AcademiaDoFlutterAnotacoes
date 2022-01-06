@@ -27,7 +27,13 @@ class AuthProvider extends ChangeNotifier {
     });
 
     ///Fica escutando os logins / logouts
-    _firebaseAuth.idTokenChanges().listen((user) {
+    ///O idTokenChanges é chamado sempre que
+    ///algum evento de refresh dentro das estruturas
+    ///do firebase são rodados
+    // _firebaseAuth.idTokenChanges().listen((user) {
+    ///Já o authStateChanges checa somente se é 
+    ///signin ou signout
+    _firebaseAuth.authStateChanges().listen((user) {
       if (user != null) {
         TodoListNavigator.to.pushNamedAndRemoveUntil('/home', (route) => false);
       }

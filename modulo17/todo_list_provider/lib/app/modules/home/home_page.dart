@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:todo_list_provider/app/core/ui/theme_extensons.dart';
 import 'package:todo_list_provider/app/core/ui/todo_list_icons.dart';
 import 'package:todo_list_provider/app/modules/home/widgets/home_drawer.dart';
@@ -6,9 +7,36 @@ import 'package:todo_list_provider/app/modules/home/widgets/home_filters.dart';
 import 'package:todo_list_provider/app/modules/home/widgets/home_header.dart';
 import 'package:todo_list_provider/app/modules/home/widgets/home_tasks.dart';
 import 'package:todo_list_provider/app/modules/home/widgets/home_week_filter.dart';
+import 'package:todo_list_provider/app/modules/tasks/task_create_controller.dart';
+import 'package:todo_list_provider/app/modules/tasks/task_create_page.dart';
+import 'package:todo_list_provider/app/modules/tasks/tasks_module.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({ Key? key }) : super(key: key);
+
+  void _goToCreateTaskPage(BuildContext context) {
+    // Navigator.of(context).pushNamed('/task/create');
+    Navigator.of(context).push(
+      PageRouteBuilder(
+        transitionDuration: Duration(milliseconds: 400),
+        transitionsBuilder: (context, animation, secondaryAnimation, child) {
+          animation = CurvedAnimation(parent: animation, curve: Curves.easeInQuad);
+
+          return ScaleTransition(
+            scale: animation,
+            alignment: Alignment.bottomRight,
+            child: child,
+          );
+        },
+        pageBuilder: (_, animation, secondaryAnimation) {
+          return TasksModule().getPage(
+            '/task/create', 
+            context,
+          );
+        }
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +59,7 @@ class HomePage extends StatelessWidget {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () => _goToCreateTaskPage(context),
         child: Icon(Icons.add),
         backgroundColor: context.primaryColor,
       ),

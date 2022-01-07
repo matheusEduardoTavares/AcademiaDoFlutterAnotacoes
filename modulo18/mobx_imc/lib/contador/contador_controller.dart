@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:mobx/mobx.dart';
+import 'package:mobx_imc/models/full_name.dart';
 
 class ContadorController {
   ContadorController() {
@@ -41,27 +42,4 @@ class ContadorController {
   ///mais de um core state também.
   // String get saudacao => 'Olá ${fullName.first}';
   String get saudacao => _saudacaoComputed.value;
-}
-
-///O copyWith (prototype pattern) funciona para
-///que o mobX entenda que a instância mudou e 
-///precisa rebuildar o componente, mas mesmo a 
-///implementação do hashCode e do equals não funciona
-class FullName {
-  String first;
-  String last;
-  FullName({
-    required this.first,
-    required this.last,
-  });
-
-  FullName copyWith({
-    String? first,
-    String? last,
-  }) {
-    return FullName(
-      first: first ?? this.first,
-      last: last ?? this.last,
-    );
-  }
 }

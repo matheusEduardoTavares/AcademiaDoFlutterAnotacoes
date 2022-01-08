@@ -17,7 +17,11 @@ class CategoryPage extends StatefulWidget {
   State<CategoryPage> createState() => _CategoryPageState();
 }
 
-class _CategoryPageState extends State<CategoryPage> {
+class _CategoryPageState extends ModularState<CategoryPage, CategoryController> {
+  ///Ao invés de buscarmos o controller aqui, é só 
+  ///extender do ModularState
+  // var controller = Modular.get<CategoryController>();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

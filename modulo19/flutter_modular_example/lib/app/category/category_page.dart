@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+import 'package:flutter_modular_example/app/category/model/category_controller.dart';
 
 class CategoryPage extends StatefulWidget {
   // ignore: prefer_const_constructors_in_immutables
@@ -27,7 +29,18 @@ class _CategoryPageState extends State<CategoryPage> {
         ///na navegação é com Modular.args
         // child: Text(Modular.args?.data ?? 'Não foi enviado a categoria'),
         ///Outra forma:
-        child: Text(widget.categoria ?? 'Não foi enviado a categoria'),
+        child: Column(
+          children: [
+            Text(widget.categoria ?? 'Não foi enviado a categoria'),
+            TextButton(
+              onPressed: () {
+                var controller = Modular.get<CategoryController>();
+                debugPrint('CategoryController hashCode ${controller.hashCode}');
+              }, 
+              child: Text('Get Controller')
+            ),
+          ],
+        ),
       ),
     );
   }

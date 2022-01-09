@@ -6,6 +6,6 @@ import 'package:flutter_modular/flutter_modular.dart';
 void main() {
   runApp(ModularApp(
     module: AppModule(),
-    child: AppWidget(),
+    child: const AppWidget(),
   ));
 }

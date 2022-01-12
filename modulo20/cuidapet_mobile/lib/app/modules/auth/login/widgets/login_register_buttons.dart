@@ -33,7 +33,10 @@ class LoginRegisterButtons extends StatelessWidget {
           icon: Icons.mail,
           width: .42.sw,
           title: 'Cadastre-se',
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context)
+              .pushNamed('/auth/register');
+          },
         ),
       ],
     );

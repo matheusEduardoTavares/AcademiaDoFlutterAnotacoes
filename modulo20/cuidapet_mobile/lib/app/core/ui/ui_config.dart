@@ -9,5 +9,8 @@ class UiConfig {
     primaryColor: const Color(0xFFA8CE48),
     primaryColorDark: const Color(0xFF689F38),
     primaryColorLight: const Color(0xFFDDEDC7),
+    appBarTheme: const AppBarTheme(
+      backgroundColor: Color(0xFFA8CE48),
+    ),
   );
 }

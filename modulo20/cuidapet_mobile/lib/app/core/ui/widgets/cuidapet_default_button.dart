@@ -11,6 +11,7 @@ class CuidapetDefaultButton extends StatelessWidget {
     this.color,
     this.borderRadius = 10,
     this.labelColor = Colors.white,
+    this.onPressed,
   }) : super(key: key);
 
   final String label;
@@ -20,6 +21,7 @@ class CuidapetDefaultButton extends StatelessWidget {
   final Color? color;
   final Color? labelColor;
   final double borderRadius;
+  final VoidCallback? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +36,7 @@ class CuidapetDefaultButton extends StatelessWidget {
           ),
           primary: color ?? context.primaryColor,
         ),
-        onPressed: () {},
+        onPressed: onPressed,
         child: Text(
           label,
           style: TextStyle(

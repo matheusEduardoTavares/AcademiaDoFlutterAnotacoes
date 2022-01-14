@@ -39,6 +39,12 @@ class DioRestClient implements RestClient {
         path,
         data: data,
         queryParameters: queryParameters,
+        ///Esse options não sobrescreve o _options,
+        ///ele apenas agrega os atributos que 
+        ///forem colocados. Caso seja colocado um
+        ///atributo igual a um já passado no 
+        ///_options, aí sim esse atributo seria
+        ///sobrescrito
         options: Options(
           headers: headers,
         ),

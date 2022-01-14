@@ -1,4 +1,5 @@
 import 'package:cuidapet_mobile/app/core/helpers/environments.dart';
+import 'package:cuidapet_mobile/app/core/helpers/logger.dart';
 import 'package:cuidapet_mobile/app/core/ui/extensions/size_screen_extension.dart';
 import 'package:cuidapet_mobile/app/core/ui/extensions/theme_extension.dart';
 import 'package:cuidapet_mobile/app/modules/auth/login/widgets/login_form.dart';

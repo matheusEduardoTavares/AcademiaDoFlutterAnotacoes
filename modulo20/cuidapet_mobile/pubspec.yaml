@@ -10,6 +10,8 @@ dependencies:
   asuka: ^2.0.0-nullsafety.3
   cupertino_icons: ^1.0.4
   dio: ^4.0.4
+  firebase_auth: ^3.3.5
+  firebase_core: ^1.11.0
   flutter:
     sdk: flutter
   flutter_mobx: ^2.0.3+2

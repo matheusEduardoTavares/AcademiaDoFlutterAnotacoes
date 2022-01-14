@@ -35,7 +35,7 @@ class LoginRegisterButtons extends StatelessWidget {
           title: 'Cadastre-se',
           onTap: () {
             Navigator.of(context)
-              .pushNamed('/auth/register');
+              .pushNamed('/auth/register/');
           },
         ),
       ],

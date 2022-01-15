@@ -1,4 +1,3 @@
-import 'package:cuidapet_mobile/app/core/helpers/environments.dart';
 import 'package:cuidapet_mobile/app/core/ui/extensions/size_screen_extension.dart';
 import 'package:cuidapet_mobile/app/core/ui/extensions/theme_extension.dart';
 import 'package:cuidapet_mobile/app/modules/auth/login/widgets/login_form.dart';
@@ -13,17 +12,35 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      // Loader.show();
+      // Future.delayed(const Duration(seconds: 2), () {
+      //   Loader.hide();
+      // });
+
+      // Messages.alert('Mensagem de Alerta');
+      // Future.delayed(const Duration(seconds: 2), () {
+      //   Messages.info('Mensagem de Info');
+      // });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          padding: EdgeInsets.only(top: 1.statusBarHeight + 30, left: 20, right: 20),
+          padding: EdgeInsets.only(top: 1.statusBarHeight + 54, left: 20, right: 20),
           width: 1.sw,
           height: 1.sh,
           child: Column(
             children: [
-              Text(Environments.param('base_url') ?? 'Não configurado'),
+              // Text(Environments.param('base_url') ?? 'Não configurado'),
               Image.asset(
                 'assets/images/logo.png',
                 width: 150.w,

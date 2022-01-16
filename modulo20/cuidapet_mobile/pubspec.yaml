@@ -12,6 +12,7 @@ dependencies:
   dio: ^4.0.4
   firebase_auth: ^3.3.5
   firebase_core: ^1.11.0
+  firebase_messaging: ^11.2.5
   firebase_remote_config: ^1.0.4
   flutter:
     sdk: flutter

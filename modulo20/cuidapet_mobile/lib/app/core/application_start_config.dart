@@ -1,4 +1,5 @@
 import 'package:cuidapet_mobile/app/core/helpers/environments.dart';
+import 'package:cuidapet_mobile/app/core/push_notification.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/widgets.dart';
 
@@ -8,8 +9,10 @@ class ApplicationStartConfig {
 
     await _firebaseConfig();
     await _loadEnvs();
+    await _pushNotification();
   }  
 
   Future<void> _firebaseConfig() async => await Firebase.initializeApp();
   Future<void> _loadEnvs() => Environments.loadEnvs();
+  Future<void> _pushNotification() => PushNotification().configure();
 }

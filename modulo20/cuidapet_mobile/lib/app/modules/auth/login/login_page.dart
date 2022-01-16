@@ -21,11 +21,11 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
 
-  @override
-  void initState() {
-    super.initState();
+  // @override
+  // void initState() {
+  //   super.initState();
 
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    // WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
       // Loader.show();
       // Future.delayed(const Duration(seconds: 2), () {
       //   Loader.hide();
@@ -35,8 +35,10 @@ class _LoginPageState extends State<LoginPage> {
       // Future.delayed(const Duration(seconds: 2), () {
       //   Messages.info('Mensagem de Info');
       // });
-    });
-  }
+    // });
+
+    // PushNotification().getDeviceToken().then((value) => print('deviceToken = $value'));
+  // }
 
   @override
   Widget build(BuildContext context) {

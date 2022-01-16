@@ -39,19 +39,25 @@ class UserServiceImpl implements UserService {
   @override
   Future<void> login(String login, String password) async {
     try {
-      // ignore: unused_local_variable
       final accessToken = await _userRepository.login(login, password);
       _log.info('accessToken = $accessToken');
       await FirebaseAuth.instance.signInWithEmailAndPassword(email: login, password: password);
 
       await _saveAccessToken(accessToken);
       await _confirmLogin();
+      await _getUserData();
 
       _log.info('Login realizado com sucesso');
     } on FirebaseAuthException catch (e, s) {
       _log.error('Erro ao fazer login no Firebase Auth', e, s);
       throw Failure(message: 'Erro ao fazer login no Firebase');
     }
+  }
+
+  Future<void> _getUserData() async {
+    final userLogged = await _userRepository.getUserLogged();
+
+    await _localStorage.write(Constants.USER_DATA_KEY, userLogged.toJson());
   }
 
   Future<void> _saveAccessToken(String accessToken) => 

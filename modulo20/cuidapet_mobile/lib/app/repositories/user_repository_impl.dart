@@ -27,7 +27,7 @@ class UserRepositoryImpl implements UserRepository {
       );
     } on RestClientException catch (e, s) {
       /// Validando se o usuário já existe na base de dados
-      if (e.statusCode == 400 && e.response?.data['message'].toLowerCase().contains('Usuário já cadastrado')) {
+      if (e.statusCode == 400 && e.response?.data['message'].toLowerCase().contains('usuário já cadastrado')) {
         _log.error('Usuário já cadastrado', e, s);
 
         throw UserExistsException();

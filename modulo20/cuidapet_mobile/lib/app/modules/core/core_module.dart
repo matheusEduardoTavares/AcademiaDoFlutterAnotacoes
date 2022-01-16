@@ -29,6 +29,7 @@ class CoreModule extends Module {
       log: i(), 
       userRepository: i(),
       localStorage: i(),
+      localSecurityStorage: i(),
     ), export: true),
   ];
 }

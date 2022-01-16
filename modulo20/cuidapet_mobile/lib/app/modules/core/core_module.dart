@@ -5,11 +5,11 @@ import 'package:cuidapet_mobile/app/core/local_storages/local_storage.dart';
 import 'package:cuidapet_mobile/app/core/local_storages/shared_preferences_local_storage_impl.dart';
 import 'package:cuidapet_mobile/app/core/rest_client/dio_rest_client.dart';
 import 'package:cuidapet_mobile/app/core/rest_client/rest_client.dart';
-import 'package:cuidapet_mobile/app/core/services/user/user_service.dart';
-import 'package:cuidapet_mobile/app/core/services/user/user_service_impl.dart';
 import 'package:cuidapet_mobile/app/modules/core/auth/auth_store.dart';
-import 'package:cuidapet_mobile/app/repositories/user_repository.dart';
-import 'package:cuidapet_mobile/app/repositories/user_repository_impl.dart';
+import 'package:cuidapet_mobile/app/repositories/user/user_repository.dart';
+import 'package:cuidapet_mobile/app/repositories/user/user_repository_impl.dart';
+import 'package:cuidapet_mobile/app/services/user/user_service.dart';
+import 'package:cuidapet_mobile/app/services/user/user_service_impl.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class CoreModule extends Module {

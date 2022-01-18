@@ -1,0 +1,23 @@
+Fluxo do login no google:
+
+1. Ao clicar no botão, iremos fazer o login dentro das estruturas do google,
+e com isso é possível obter um accessToken para buscar as informações
+necessárias (email, ID do usuário, nome, imagem de avatar, e etc).
+
+2. Fazer login no Firebase com credencial. Se o usuário já estiver 
+cadastrado com outro provedor (login e senha / google / facebook, etc),
+nesse mesmo e-mail não devemos deixar que ele logue no sistema usando 
+um outro provedor que não o mesmo do cadastro.
+
+3. Fazer login no backend. Nesse momento nosso próprio backend faz o cadastro dele dentro 
+da base de dados, caso tenha escolhido outro provedor que não login e senha,
+pois se for login e senha já estará cadastrado no banco de dados nosso. Tem
+mais dados quando fazemos login por outros provedores. 
+
+4. Assim como tem na parte de login / senha normal, por fim é feito a 
+confirmação do login, ou seja, se os passos anteriores deram certo, pois 
+não pode fazer login no backend mas não fazer no firebase por algum erro,
+por exemplo, tudo tem que ter dado certo.
+
+5. Por fim, se confirmou o login, pega os dados do usuário e direciona 
+para home-page.

@@ -86,7 +86,9 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ],
               ),
-              const LoginRegisterButtons(),
+              LoginRegisterButtons(
+                loginController: widget._controller,
+              ),
             ],
           ),
         ),

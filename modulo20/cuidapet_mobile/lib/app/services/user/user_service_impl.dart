@@ -37,6 +37,7 @@ class UserServiceImpl implements UserService {
     try {
       await _userRepository.register(email, password);
       await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: password);
+      await login(email, password);
     } on FirebaseAuthException catch (e, s) {
       _log.error('Erro ao criar usuário no FirebaseAuth', e, s);
 

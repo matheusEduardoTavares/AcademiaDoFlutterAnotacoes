@@ -24,6 +24,7 @@ class CoreModule extends Module {
       localStorage: i(),
       localSecurityStorage: i(),
       log: i(),
+      authStore: i(),
     ), export: true),
     Bind.lazySingleton<Logger>((i) => LoggerImpl(), export: true),
     Bind.lazySingleton<LocalStorage>((i) => SharedPreferencesLocalStorageImpl(), export: true),

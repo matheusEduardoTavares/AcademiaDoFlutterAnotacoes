@@ -1,3 +1,4 @@
+import 'package:cuidapet_mobile/app/core/rest_client/rest_client.dart';
 import 'package:cuidapet_mobile/app/modules/core/auth/auth_store.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -17,11 +18,22 @@ class _HomePageState extends State<HomePage> {
         title: const Text('HomePage'),
       ),
       body: Center(
-        child: TextButton(
-          child: const Text('Logout'),
-          onPressed: () {
-            Modular.get<AuthStore>().logout();
-          },
+        child: Column(
+          children: [
+            TextButton(
+              child: const Text('Teste Refresh Token'),
+              onPressed: () async {
+                final result = await Modular.get<RestClient>().auth().get('/categories/');
+                debugPrint(result.data?.toString());
+              },
+            ),
+            TextButton(
+              child: const Text('Logout'),
+              onPressed: () {
+                Modular.get<AuthStore>().logout();
+              },
+            ),
+          ],
         ),
       ),
     );

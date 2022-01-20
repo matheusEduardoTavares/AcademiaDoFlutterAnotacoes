@@ -20,13 +20,14 @@ class AuthHomePage extends StatefulWidget {
 }
 
 class _AuthHomePageState extends State<AuthHomePage> {
-  final _reactionsDisposers = <ReactionDisposer>[];
+  // final _reactionsDisposers = <ReactionDisposer>[];
 
   @override
   void initState() {
     super.initState();
 
-    final userModelReaction = reaction<UserModel?>((_) => widget._authStore.userModel, (userModel) {
+    // final userModelReaction = reaction<UserModel?>((_) => widget._authStore.userModel, (userModel) {
+    reaction<UserModel?>((_) => widget._authStore.userModel, (userModel) {
       if (userModel != null && userModel.email.isNotEmpty) {
         Modular.to.navigate('/home');
       }
@@ -35,9 +36,9 @@ class _AuthHomePageState extends State<AuthHomePage> {
       }
     });
 
-    _reactionsDisposers.addAll([
-      userModelReaction,
-    ]);
+    // _reactionsDisposers.addAll([
+    //   userModelReaction,
+    // ]);
 
     WidgetsBinding.instance?.addPostFrameCallback((_) {
       widget._authStore.loadUser();
@@ -58,12 +59,12 @@ class _AuthHomePageState extends State<AuthHomePage> {
     );
   }
 
-  @override
-  void dispose() {
-    for (final disposer in _reactionsDisposers) {
-      disposer();
-    }
+  // @override
+  // void dispose() {
+  //   for (final disposer in _reactionsDisposers) {
+  //     disposer();
+  //   }
 
-    super.dispose();
-  }
+  //   super.dispose();
+  // }
 }

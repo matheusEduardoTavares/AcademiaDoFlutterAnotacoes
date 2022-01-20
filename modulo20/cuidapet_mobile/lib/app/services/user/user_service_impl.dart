@@ -1,4 +1,6 @@
 import 'package:cuidapet_mobile/app/core/exceptions/failure.dart';
+import 'package:cuidapet_mobile/app/core/exceptions/social_login_canceled.dart';
+import 'package:cuidapet_mobile/app/core/exceptions/user_exists_exception.dart';
 import 'package:cuidapet_mobile/app/core/helpers/constants.dart';
 import 'package:cuidapet_mobile/app/core/helpers/logger.dart';
 import 'package:cuidapet_mobile/app/core/local_storages/local_security_storage.dart';
@@ -9,6 +11,7 @@ import 'package:cuidapet_mobile/app/repositories/social/social_repository.dart';
 import 'package:cuidapet_mobile/app/repositories/user/user_repository.dart';
 import 'package:cuidapet_mobile/app/services/user/user_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class UserServiceImpl implements UserService {
   UserServiceImpl({
@@ -78,9 +81,10 @@ class UserServiceImpl implements UserService {
 
   @override
   Future<void> socialLogin(SocialType socialType) async {
+    String? email;
+
     try {
       /// Declaracoes
-      String? email;
 
       final SocialNetworkModel socialModel;
       final AuthCredential authCredential;
@@ -94,7 +98,15 @@ class UserServiceImpl implements UserService {
             idToken: socialModel.id,
           );
           break;
+        case SocialType.facebook:
+          socialModel = await _socialRepository.facebookLogin();
+          authCredential = FacebookAuthProvider.credential(
+            socialModel.accessToken,
+          );
+          break;
       }
+
+      email = socialModel.email;
 
       /// Processo comum do login com rede social
       await firebaseAuth.signInWithCredential(
@@ -108,8 +120,25 @@ class UserServiceImpl implements UserService {
       await _getUserData();
     }
     on FirebaseAuthException catch(e, s) {
+      if (e.code == 'account-exists-with-different-credential') {
+        if (email != null) {
+          final fetchMethods = await FirebaseAuth.instance.fetchSignInMethodsForEmail(email);
+
+          var socialNetwork = '';
+          if (fetchMethods.contains('google.com')) {
+            socialNetwork = 'Google';
+          }
+
+          _log.error('Usuário registrado com outro método de login ($socialNetwork, $socialType)');
+          throw UserExistsException('Você se registrou com $socialNetwork, por favor utilize esse mesmo método');
+        }
+      }
+
       _log.error('Erro ao realizar login no Firebase', e, s);
       throw Failure(message: 'Erro ao realizar login no Firebase');
+    } on SocialLoginCanceled {
+      _log.error('Login cancelado');
+      rethrow;
     }
   }
     

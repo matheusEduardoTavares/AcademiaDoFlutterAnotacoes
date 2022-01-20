@@ -11,7 +11,6 @@ import 'package:cuidapet_mobile/app/repositories/social/social_repository.dart';
 import 'package:cuidapet_mobile/app/repositories/user/user_repository.dart';
 import 'package:cuidapet_mobile/app/services/user/user_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class UserServiceImpl implements UserService {
   UserServiceImpl({

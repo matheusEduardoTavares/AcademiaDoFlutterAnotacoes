@@ -5,12 +5,12 @@ void main() {
   // testWidget
 
   test('Teste sem grupo', () {
-    throw Exception();
+    // throw Exception();
   });
 
   group('Grupo de teste', () {
     test('Teste dentro do grupo 1', () {
-      
+      // throw Exception();
     });
 
     test('Teste dentro do grupo 2', () {

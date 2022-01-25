@@ -16,6 +16,11 @@ class Carrinho {
 
     // return total;
 
+    if (items.isEmpty) {
+      // throw FormatException();
+      throw CarrinhoException();
+    }
+
     return items.fold(
       0, 
       (totalValue, item) => totalValue + item.preco
@@ -37,3 +42,5 @@ class Carrinho {
     return valorTotal;
   }
 }
+
+class CarrinhoException implements Exception {}

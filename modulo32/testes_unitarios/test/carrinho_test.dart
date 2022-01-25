@@ -117,4 +117,97 @@ void main() {
         expect(valorTotal, 22000);
       });
   });
+
+  group('Teste de igualdade', () {
+    test('Teste de igualdade', () {
+      final iphone = Item(nome: 'Iphone 12', preco: 10000);
+      final items = [
+        Item(nome: 'Galaxy J1', preco: 2000),
+        iphone,
+        Item(nome: 'Carregador de tomada', preco: 200),
+      ];
+
+      final carrinho = Carrinho(items: items);
+
+      expect(carrinho.items, contains(
+        iphone,
+      ));
+    });
+  });
+
+  group('Teste de igualdade 2', () {
+    test('Teste de igualdade', () {
+      final items = [
+        Item(nome: 'Galaxy J1', preco: 2000),
+        Item(nome: 'Iphone 12', preco: 10000),
+        Item(nome: 'Carregador de tomada', preco: 200),
+      ];
+
+      final carrinho = Carrinho(items: items);
+
+      expect(carrinho.items, contains(
+        Item(nome: 'Iphone 12', preco: 10000),
+      ));
+    });
+  });
+
+  group('Teste de igualdade por quantidade e por tipo', () {
+    test('Teste de igualdade', () {
+      final items = [
+        Item(nome: 'Galaxy J1', preco: 2000),
+        Item(nome: 'Iphone 12', preco: 10000),
+        Item(nome: 'Carregador de tomada', preco: 200),
+      ];
+
+      final carrinho = Carrinho(items: items);
+
+      expect(carrinho.items.length, 3);
+      expect(
+        carrinho.items,
+        isA<List<Item>>(),
+      );
+    });
+
+    test('Teste de Exceptions', () {
+      final items = <Item>[];
+
+      final carrinho = Carrinho(items: items);
+      var call = carrinho.totalCarrinho;
+
+      expect(
+        () => call(),
+        throwsException,
+      );
+      expect(
+        () => call(),
+        throwsFormatException,
+      );
+    });
+
+    test('Teste de Exceptions customizadas', () {
+      final items = <Item>[];
+
+      final carrinho = Carrinho(items: items);
+      var call = carrinho.totalCarrinho;
+
+      expect(
+        () => call(),
+        throwsA(isA<CarrinhoException>()),
+      );
+    });
+
+    test('Teste de Exceptions customizadas 2', () {
+      final items = <Item>[];
+
+      final carrinho = Carrinho(items: items);
+      try {
+        carrinho.totalCarrinho();
+      }
+      on CarrinhoException {
+        print('Sucesso');
+      } catch(e) {
+        fail('Retornou outra exception ($e)');
+      }
+    });
+  });
 }

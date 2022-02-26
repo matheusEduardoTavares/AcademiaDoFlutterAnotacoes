@@ -7,6 +7,7 @@ environment:
 dependencies:
   asuka: ^2.0.0+1
   bloc: ^8.0.2
+  cloud_firestore: ^3.1.10
   cupertino_icons: ^1.0.2
   dio: ^4.0.4
   equatable: ^2.0.3

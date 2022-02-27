@@ -46,3 +46,6 @@ app.*.map.json
 /android/app/release
 
 **/google-services.json
+
+.env
+.env_dev

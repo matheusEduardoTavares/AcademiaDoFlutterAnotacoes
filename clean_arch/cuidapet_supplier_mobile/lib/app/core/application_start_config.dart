@@ -1,11 +1,14 @@
+import 'package:cuidapet_supplier_mobile/app/core/helpers/environments.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class ApplicationStartConfig {
   Future<void> configureApp() async {
     WidgetsFlutterBinding.ensureInitialized();
     await _firebaseCoreConfig();
+    await _loadEnvs();
   }
 
   Future<void> _firebaseCoreConfig() async {
@@ -13,4 +16,6 @@ class ApplicationStartConfig {
     final token = await FirebaseMessaging.instance.getToken();
     debugPrint('token = $token');
   }
+
+  Future<void> _loadEnvs() => Environments.loadEnvs();
 }

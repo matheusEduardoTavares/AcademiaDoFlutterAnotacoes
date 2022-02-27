@@ -2,7 +2,6 @@ import 'package:cuidapet_supplier_mobile/app/core/helpers/environments.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class ApplicationStartConfig {
   Future<void> configureApp() async {

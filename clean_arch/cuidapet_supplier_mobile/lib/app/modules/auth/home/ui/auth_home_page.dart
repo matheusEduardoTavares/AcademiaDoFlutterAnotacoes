@@ -27,7 +27,7 @@ class AuthHomePage extends StatelessWidget {
             Modular.to.pushReplacementNamed('/home');
             break;
           case AuthStatus.unlogged:
-            Modular.to.pushReplacementNamed('/login');
+            Modular.to.pushReplacementNamed('/login/');
             break;
         }
       },

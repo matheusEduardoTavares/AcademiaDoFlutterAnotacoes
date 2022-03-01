@@ -23,7 +23,7 @@ class AuthModule extends Module {
       child: (_, args) => AuthHomePage(authHomeController: Modular.get(),)
     ),
     ModuleRoute(
-      '/login', 
+      '/login/', 
       module: LoginModule(),
     ),
     ModuleRoute(

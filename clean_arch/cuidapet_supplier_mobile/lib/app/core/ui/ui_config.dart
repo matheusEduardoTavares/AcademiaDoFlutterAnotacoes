@@ -4,6 +4,8 @@ class UiConfig {
   UiConfig._();
 
   static ThemeData theme() => ThemeData(
+    primaryColor: const Color(0xFFA8CE48),
+    primaryColorDark: const Color(0xFF4CAF50),
     colorScheme: const ColorScheme(
       primary: Color(0xFFA8CE48),
       onPrimary: Colors.black,

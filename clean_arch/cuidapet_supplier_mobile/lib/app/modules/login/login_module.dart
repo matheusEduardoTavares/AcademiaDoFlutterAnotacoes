@@ -1,4 +1,4 @@
-import 'package:cuidapet_supplier_mobile/app/modules/login/login_page.dart';
+import 'package:cuidapet_supplier_mobile/app/modules/login/ui/login_page.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class LoginModule extends Module {

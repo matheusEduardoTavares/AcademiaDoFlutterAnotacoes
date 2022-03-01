@@ -18,7 +18,6 @@ class AuthHomeController extends Cubit<AuthHomeState> {
     if (userLogged) {
       authStatus = AuthStatus.logged;
     }
-    // ignore: dead_code
     else {
       authStatus = AuthStatus.unlogged;
     }

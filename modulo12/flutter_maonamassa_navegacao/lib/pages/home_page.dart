@@ -42,6 +42,15 @@ class HomePage extends StatelessWidget {
                    },
                    child: Text('Ir para detalhe2 e aguardar'),
                  ),
+                 TextButton(
+                   onPressed: () async {
+                     debugPrint('Antes de navegar para a página detalhe3');
+                     final value = await Navigator.of(context).pushNamed<String>('/detalhe3', arguments: 'Parametro X');
+                     debugPrint('Navegou para a página detalhe3');
+                     debugPrint('O retorno de detalhe3 é $value');
+                   },
+                   child: Text('Ir para detalhe3 e aguardar'),
+                 ),
                ],
              ),
            ),

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_maonamassa_navegacao/core/navigator_observer_custom.dart';
-import 'package:flutter_maonamassa_navegacao/pages/detalhe2_page.dart';
+import 'package:flutter_maonamassa_navegacao/pages/detalhe3_page.dart';
 import 'package:flutter_maonamassa_navegacao/pages/detalhe_page.dart';
 import 'package:flutter_maonamassa_navegacao/pages/home_page.dart';
 
@@ -38,11 +38,18 @@ class MyApp extends StatelessWidget {
             ),
           );
         }
+        if (settings.name == '/detalhe3') {
+          return MaterialPageRoute<String>(
+            settings: settings,
+            builder: (_) => Detalhe3Page(),
+          );
+        }
       },
       routes: {
         // '/': (_) => HomePage(),
         // '/detalhe': (_) => DetalhePage()
-        '/detalhe2': (_) => Detalhe2Page()
+        // '/detalhe2': (_) => Detalhe2Page(),
+        // '/detalhe3': (_) => Detalhe3Page()
       },
     );
   }

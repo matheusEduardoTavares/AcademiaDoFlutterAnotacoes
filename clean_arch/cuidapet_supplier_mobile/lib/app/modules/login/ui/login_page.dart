@@ -3,6 +3,7 @@ import 'package:cuidapet_supplier_mobile/app/core/extensions/theme_extensions.da
 import 'package:cuidapet_supplier_mobile/app/modules/login/ui/widgets/cuidapet_default_button.dart';
 import 'package:cuidapet_supplier_mobile/app/modules/login/ui/widgets/cuidapet_text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({ Key? key }) : super(key: key);
@@ -58,7 +59,9 @@ class LoginPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 10,),
                     TextButton(
-                      onPressed: () {}, 
+                      onPressed: () {
+                        Modular.to.pushNamed('/register');
+                      }, 
                       child: const Text('Cadastrar PET')
                     ),
                   ],

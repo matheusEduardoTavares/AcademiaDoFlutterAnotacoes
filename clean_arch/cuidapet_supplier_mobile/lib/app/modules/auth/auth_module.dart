@@ -3,6 +3,7 @@ import 'package:cuidapet_supplier_mobile/app/modules/auth/home/ui/auth_home_page
 import 'package:cuidapet_supplier_mobile/app/modules/core/auth/auth_core_module.dart';
 import 'package:cuidapet_supplier_mobile/app/modules/home/home_module.dart';
 import 'package:cuidapet_supplier_mobile/app/modules/login/login_module.dart';
+import 'package:cuidapet_supplier_mobile/app/modules/register/register_module.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
 class AuthModule extends Module {
@@ -29,6 +30,10 @@ class AuthModule extends Module {
     ModuleRoute(
       '/home', 
       module: HomeModule(),
+    ),
+    ModuleRoute(
+      '/register', 
+      module: RegisterModule(),
     ),
   ];
 

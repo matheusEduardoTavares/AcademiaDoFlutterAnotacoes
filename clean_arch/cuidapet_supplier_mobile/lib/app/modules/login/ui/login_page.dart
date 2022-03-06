@@ -1,5 +1,7 @@
 import 'package:cuidapet_supplier_mobile/app/core/extensions/screen_size_extensions.dart';
 import 'package:cuidapet_supplier_mobile/app/core/extensions/theme_extensions.dart';
+import 'package:cuidapet_supplier_mobile/app/modules/login/ui/widgets/cuidapet_default_button.dart';
+import 'package:cuidapet_supplier_mobile/app/modules/login/ui/widgets/cuidapet_text_form_field.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -41,13 +43,18 @@ class LoginPage extends StatelessWidget {
                       fit: BoxFit.fill,
                     ),
                     const SizedBox(height: 15,),
-                    TextFormField(),
+                    CuidapetTextFormField(
+                      label: 'E-mail',
+                    ),
                     const SizedBox(height: 10,),
-                    TextFormField(),
+                    CuidapetTextFormField(
+                      label: 'Senha',
+                      obscureText: true,
+                    ),
                     const SizedBox(height: 10,),
-                    ElevatedButton(
-                      onPressed: () {}, 
-                      child: const Text('Login')
+                    CuidapetDefaultButton(
+                      label: 'Login',
+                      onPressed: () {},
                     ),
                     const SizedBox(height: 10,),
                     TextButton(

@@ -8,7 +8,7 @@ class UiConfig {
     primaryColorDark: const Color(0xFF4CAF50),
     colorScheme: const ColorScheme(
       primary: Color(0xFFA8CE48),
-      onPrimary: Colors.black,
+      onPrimary: Colors.white,
       secondary: Color(0xFF4CAF50),
       onSecondary: Colors.black,
       background: Colors.white,

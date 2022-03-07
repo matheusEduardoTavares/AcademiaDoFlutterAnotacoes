@@ -1,13 +1,24 @@
 import 'package:cuidapet_supplier_mobile/app/core/extensions/screen_size_extensions.dart';
 import 'package:cuidapet_supplier_mobile/app/core/extensions/theme_extensions.dart';
+import 'package:cuidapet_supplier_mobile/app/modules/register/presenter/controller/register_controller.dart';
+import 'package:cuidapet_supplier_mobile/app/modules/register/presenter/controller/register_state.dart';
+import 'package:cuidapet_supplier_mobile/app/modules/register/presenter/view_models/register_input_model.dart';
 import 'package:cuidapet_supplier_mobile/app/modules/register/ui/steps/one/register_step_one_page.dart';
 import 'package:cuidapet_supplier_mobile/app/modules/register/ui/steps/three/register_step_three_page.dart';
 import 'package:cuidapet_supplier_mobile/app/modules/register/ui/steps/two/register_step_two_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:steps_indicator/steps_indicator.dart';
 
 class RegisterPage extends StatelessWidget {
-  const RegisterPage({ Key? key }) : super(key: key);
+  const RegisterPage({ 
+    required RegisterController controller,
+    Key? key
+  }) : 
+  _controller = controller,
+  super(key: key);
+
+  final RegisterController _controller;
 
   @override
   Widget build(BuildContext context) {
@@ -45,23 +56,45 @@ class RegisterPage extends StatelessWidget {
                       fit: BoxFit.fill,
                     ),
                     const SizedBox(height: 15,),
-                    StepsIndicator(
-                      selectedStep: 0,
-                      lineLength: 120.w,
-                      doneStepColor: context.primaryColorDark,
-                      doneLineColor: context.primaryColorDark,
-                      undoneLineColor: context.primaryColorDark,
-                      selectedStepColorIn: context.primaryColor,
-                      selectedStepColorOut: context.primaryColorDark,
-                      unselectedStepColorIn: Colors.white,
-                      unselectedStepColorOut: context.primaryColorDark,
-                      selectedStepSize: 20,
-                      unselectedStepSize: 15,
-                      doneStepSize: 20,
-                      nbSteps: 3,
+                    BlocBuilder<RegisterController, RegisterState>(
+                      bloc: _controller,
+                      builder: (_, state) => StepsIndicator(
+                        selectedStep: state.step - 1,
+                        lineLength: 120.w,
+                        doneStepColor: context.primaryColorDark,
+                        doneLineColor: context.primaryColorDark,
+                        undoneLineColor: context.primaryColorDark,
+                        selectedStepColorIn: context.primaryColor,
+                        selectedStepColorOut: context.primaryColorDark,
+                        unselectedStepColorIn: Colors.white,
+                        unselectedStepColorOut: context.primaryColorDark,
+                        selectedStepSize: 20,
+                        unselectedStepSize: 15,
+                        doneStepSize: 20,
+                        nbSteps: 3,
+                      ),
                     ),
                     const SizedBox(height: 10,),
-                    _showStep(3),
+                    BlocBuilder<RegisterController, RegisterState>(
+                      bloc: _controller,
+                      builder: (_, state) => Visibility(
+                        visible: state.error == null,
+                        child: _showStep(state.step - 1, state.model),
+                        replacement: Center(
+                          child: Column(
+                            children: [
+                              const Text('Erro ao registrar usuário'),
+                              TextButton(
+                                onPressed: () => _controller.restartProcess(), 
+                                child: const Text(
+                                  'Clique aqui para reiniciar o processo'
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -72,7 +105,7 @@ class RegisterPage extends StatelessWidget {
     );
   }
 
-  Widget _showStep(int step) {
+  Widget _showStep(int step, RegisterInputModel model) {
     switch(step) {
       case 1:
         return const RegisterStepOnePage();

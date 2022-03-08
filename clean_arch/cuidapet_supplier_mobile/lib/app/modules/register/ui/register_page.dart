@@ -3,6 +3,7 @@ import 'package:cuidapet_supplier_mobile/app/core/extensions/theme_extensions.da
 import 'package:cuidapet_supplier_mobile/app/modules/register/presenter/controller/register_controller.dart';
 import 'package:cuidapet_supplier_mobile/app/modules/register/presenter/controller/register_state.dart';
 import 'package:cuidapet_supplier_mobile/app/modules/register/presenter/view_models/register_input_model.dart';
+import 'package:cuidapet_supplier_mobile/app/modules/register/ui/steps/one/controller/register_step_one_controller.dart';
 import 'package:cuidapet_supplier_mobile/app/modules/register/ui/steps/one/register_step_one_page.dart';
 import 'package:cuidapet_supplier_mobile/app/modules/register/ui/steps/three/register_step_three_page.dart';
 import 'package:cuidapet_supplier_mobile/app/modules/register/ui/steps/two/register_step_two_page.dart';
@@ -13,12 +14,15 @@ import 'package:steps_indicator/steps_indicator.dart';
 class RegisterPage extends StatelessWidget {
   const RegisterPage({ 
     required RegisterController controller,
+    required RegisterStepOneController registerStepOneController,
     Key? key
   }) : 
   _controller = controller,
+  _registerStepOneController = registerStepOneController,
   super(key: key);
 
   final RegisterController _controller;
+  final RegisterStepOneController _registerStepOneController;
 
   @override
   Widget build(BuildContext context) {
@@ -79,7 +83,7 @@ class RegisterPage extends StatelessWidget {
                       bloc: _controller,
                       builder: (_, state) => Visibility(
                         visible: state.error == null,
-                        child: _showStep(state.step - 1, state.model),
+                        child: _showStep(state.step, state.model),
                         replacement: Center(
                           child: Column(
                             children: [
@@ -108,7 +112,9 @@ class RegisterPage extends StatelessWidget {
   Widget _showStep(int step, RegisterInputModel model) {
     switch(step) {
       case 1:
-        return const RegisterStepOnePage();
+        return RegisterStepOnePage(
+          controller: _registerStepOneController,
+        );
       case 2:
         return const RegisterStepTwoPage();
       case 3:

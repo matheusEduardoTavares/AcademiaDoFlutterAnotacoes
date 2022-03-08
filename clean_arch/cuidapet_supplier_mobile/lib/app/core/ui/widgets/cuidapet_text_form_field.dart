@@ -29,6 +29,8 @@ class CuidapetTextFormField extends StatelessWidget {
       valueListenable: obscureTextVN,
       builder: (_, obscureValue, __) {
         return TextFormField(
+          controller: controller,
+          validator: validator,
           obscureText: obscureValue,
           decoration: InputDecoration(
             labelText: label,

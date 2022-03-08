@@ -1,5 +1,5 @@
-import 'package:cuidapet_supplier_mobile/app/modules/login/ui/widgets/cuidapet_default_button.dart';
-import 'package:cuidapet_supplier_mobile/app/modules/login/ui/widgets/cuidapet_text_form_field.dart';
+import 'package:cuidapet_supplier_mobile/app/core/ui/widgets/cuidapet_default_button.dart';
+import 'package:cuidapet_supplier_mobile/app/core/ui/widgets/cuidapet_text_form_field.dart';
 import 'package:flutter/material.dart';
 
 class RegisterStepTwoPage extends StatelessWidget {

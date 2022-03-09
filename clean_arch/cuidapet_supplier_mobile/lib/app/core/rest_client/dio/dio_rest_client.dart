@@ -7,7 +7,7 @@ import 'package:dio/dio.dart';
 class DioRestClient implements RestClient {
   late Dio _dio;
   final _defaultBaseOptions = BaseOptions(
-    baseUrl: Environments.param('') ?? '',
+    baseUrl: Environments.param('base_url') ?? '',
     connectTimeout: int.tryParse(Environments.param('dio_connect_timeout') ?? '') ?? 60000,
     receiveTimeout: int.tryParse(Environments.param('dio_receive_timeout') ?? '') ?? 60000
   );

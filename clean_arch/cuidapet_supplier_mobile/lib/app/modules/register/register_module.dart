@@ -1,4 +1,8 @@
+import 'package:cuidapet_supplier_mobile/app/modules/register/data/datasources/register_user_datasource_impl.dart';
+import 'package:cuidapet_supplier_mobile/app/modules/register/domain/repositories/register_user_repository.dart';
 import 'package:cuidapet_supplier_mobile/app/modules/register/domain/usecases/check_supplier_email_exists_usecase_impl.dart';
+import 'package:cuidapet_supplier_mobile/app/modules/register/infra/datasources/register_user_datasource.dart';
+import 'package:cuidapet_supplier_mobile/app/modules/register/infra/repositories/register_user_repository_impl.dart';
 import 'package:cuidapet_supplier_mobile/app/modules/register/presenter/controller/register_controller.dart';
 import 'package:cuidapet_supplier_mobile/app/modules/register/presenter/usecases/check_supplier_email_exists_usecase.dart';
 import 'package:cuidapet_supplier_mobile/app/modules/register/ui/register_page.dart';
@@ -10,7 +14,17 @@ class RegisterModule extends Module {
    @override
    final List<Bind> binds = [
      Bind.lazySingleton((i) => RegisterController()),
-     Bind.lazySingleton<CheckSupplierEmailExistsUsecase>((i) => CheckSupplierEmailExistsUsecaseImpl()),
+     Bind.lazySingleton<RegisterUserDataSource>((i) => RegisterUserDataSourceImpl(
+       logger: i(),
+       restClient: i(),
+     )),
+     Bind.lazySingleton<RegisterUserRepository>((i) => RegisterUserRepositoryImpl(
+       logger: i(),
+       registerUserDataSource: i(),
+     )),
+     Bind.lazySingleton<CheckSupplierEmailExistsUsecase>((i) => CheckSupplierEmailExistsUsecaseImpl(
+       registerUserRepository: i(),
+     )),
      Bind.factory((i) => RegisterStepOneController(
        checkEmailExists: i(),
        registerController: i(),

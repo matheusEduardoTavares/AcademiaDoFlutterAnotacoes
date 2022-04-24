@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:consumo_api/models/telefone.dart';
+
 void main(List<String> arguments) {
   final cidadeJson = '''
     [
@@ -26,6 +28,7 @@ void main(List<String> arguments) {
 
   if (cidadeMap is List) {
     print('Uma lista');
+    // ignore: avoid_function_literals_in_foreach_calls
     cidadeMap.forEach((city) {
       print('nome: ${city['nome']} | Região: ${city['regiao']['nome']}');
     });
@@ -45,4 +48,17 @@ void main(List<String> arguments) {
   };
 
   print(jsonEncode([cidadeMapJson]));
+
+  final telefoneJson = '''
+    {
+      "ddd": 11,
+      "telefone": "1216534694"
+    }
+  ''';
+
+  final telefone = Telefone.fromJson(telefoneJson);
+  print(telefone.ddd);
+  print(telefone.telefone);
+  print(telefone.toJson());
+  print(telefone.toMap());
 }

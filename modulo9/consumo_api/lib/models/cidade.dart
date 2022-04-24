@@ -26,4 +26,7 @@ class Cidade {
   String toJson() => json.encode(toMap());
 
   factory Cidade.fromJson(String source) => Cidade.fromMap(json.decode(source));
+
+  @override
+  String toString() => 'Cidade(id: $id, nome: $nome)';
 }

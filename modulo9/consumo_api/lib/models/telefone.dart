@@ -26,4 +26,7 @@ class Telefone {
   String toJson() => json.encode(toMap());
 
   factory Telefone.fromJson(String source) => Telefone.fromMap(json.decode(source));
+
+  @override
+  String toString() => 'Telefone(ddd: $ddd, telefone: $telefone)';
 }

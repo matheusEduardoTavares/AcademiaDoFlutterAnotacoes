@@ -4,7 +4,7 @@ import 'package:consumo_api/models/curso.dart';
 import 'package:consumo_api/models/endereco.dart';
 
 class Aluno {
-  final String id;
+  final String? id;
   final String nome;
   final int idade;
   final List<String> nomeCursos;
@@ -12,7 +12,7 @@ class Aluno {
   final List<Curso> cursos;
 
   Aluno({
-    required this.id,
+    this.id,
     required this.nome,
     required this.idade,
     required this.nomeCursos,
@@ -33,7 +33,7 @@ class Aluno {
 
   factory Aluno.fromMap(Map<String, dynamic> map) {
     return Aluno(
-      id: map['id'] ?? '',
+      id: map['id'],
       nome: map['nome'] ?? '',
       idade: map['idade'] ?? 0,
       nomeCursos: List<String>.from(map['nomeCursos']),
@@ -45,4 +45,9 @@ class Aluno {
   String toJson() => json.encode(toMap());
 
   factory Aluno.fromJson(String source) => Aluno.fromMap(json.decode(source));
+
+  @override
+  String toString() {
+    return 'Aluno(id: $id, nome: $nome, idade: $idade, nomeCursos: $nomeCursos, endereco: $endereco, cursos: $cursos)';
+  }
 }

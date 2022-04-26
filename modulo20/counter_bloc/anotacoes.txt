@@ -1,0 +1,10 @@
+Princípios:
+BLoC vs CUBIT
+Usamos o BLoC quando queremos rastreabilidade no código,
+ou quando precisamos aplicar transformações ao executar 
+determinada lógica por meio de algum evento (por exemplo,
+adicionar um debounce).
+Em outros casos podemos fazer uso do CUBIT mesmo que é 
+mais simples, uma vez que ele trabalha direto com funções
+para atualizar o estado, não precisando trabalhar com os 
+eventos.

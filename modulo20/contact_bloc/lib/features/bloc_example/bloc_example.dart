@@ -34,6 +34,15 @@ class BlocExample extends StatelessWidget {
             }
           ),
           BlocConsumer<ExampleBloc, ExampleState>(
+            buildWhen: (previous, current) {
+              if (previous is ExampleStateInitial && current is ExampleStateData) {
+                if (current.names.length > 4) {
+                  return true;
+                }
+              }
+
+              return false;
+            },
             builder: (_, state) {
               if (state is ExampleStateData) {
                 return Text('Total de nomes é ${state.names.length}');
@@ -46,6 +55,15 @@ class BlocExample extends StatelessWidget {
             },
           ),
           BlocListener<ExampleBloc, ExampleState>(
+            listenWhen: (previous, current) {
+              if (previous is ExampleStateInitial && current is ExampleStateData) {
+                if (current.names.length > 4) {
+                  return true;
+                }
+              }
+
+              return false;
+            },
             listener: (_, state) {
               if (state is ExampleStateData) {
                 ScaffoldMessenger.of(context)

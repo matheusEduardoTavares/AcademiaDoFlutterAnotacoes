@@ -10,6 +10,7 @@ class ExampleBloc extends Bloc<ExampleEvent, ExampleState> {
   ExampleBloc() : super(ExampleStateInitial()) {
     on<ExampleFindNameEvent>(_findNames);
     on<ExampleRemoveNameEvent>(_removeName);
+    on<ExampleAddNameEvent>(_addName);
   }
 
   FutureOr<void> _removeName(ExampleRemoveNameEvent event, Emitter<ExampleState> emit) {
@@ -19,6 +20,13 @@ class ExampleBloc extends Bloc<ExampleEvent, ExampleState> {
       names.retainWhere((element) => element != event.name);
       emit(ExampleStateData(names: names));
     }
+  }
+
+  FutureOr<void> _addName(ExampleAddNameEvent event, Emitter<ExampleState> emit) {
+    emit(ExampleStateData(names: [
+      ...(state as ExampleStateData).names,
+      event.name,
+    ]));
   }
 
   FutureOr<void> _findNames(

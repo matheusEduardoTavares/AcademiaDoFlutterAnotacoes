@@ -29,7 +29,7 @@ class HomePage extends StatelessWidget {
               ),
               ButtonCard(
                 onTap: () {
-                  Navigator.of(context).pushNamed('/bloc/example');
+                  Navigator.of(context).pushNamed('/contacts/list');
                 },
                 title: 'Contact',
               ),

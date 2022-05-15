@@ -6,4 +6,6 @@ class ContactListState with _$ContactListState {
   factory ContactListState.data({
     required List<ContactModel> contacts,
   }) = _ContactListStateData;
+  factory ContactListState.error({required String error}) 
+    = _ContactListStateError;
 }

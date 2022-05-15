@@ -25,15 +25,16 @@ class ContactListBloc extends Bloc<ContactListEvent, ContactListState> {
     Emitter<ContactListState> emit,
   ) async {
     try {
+      emit(ContactListState.loading());
       final contacts = await _repository.findAll();
       emit(ContactListState.data(contacts: contacts));
-    } on Exception catch (e, s) {
+    } catch (e, s) {
       log(
         'Erro ao buscar contatos',
         error: e,
         stackTrace: s,
       );
-      
+
       emit(ContactListState.error(error: 'Erro ao buscar contatos'));
     }
   }

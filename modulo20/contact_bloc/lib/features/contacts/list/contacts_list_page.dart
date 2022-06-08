@@ -14,10 +14,14 @@ class ContactsListPage extends StatelessWidget {
         title: const Text('ContactsListPage'),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.pushNamed(
+        onPressed: () async {
+          await Navigator.pushNamed(
             context, 
             '/contacts/register',
+          );
+
+          context.read<ContactListBloc>().add(
+            const ContactListEvent.findAll()
           );
         },
         child: const Icon(Icons.add),
@@ -69,19 +73,26 @@ class ContactsListPage extends StatelessWidget {
                         orElse: () => [],
                       ),
                       builder: (_, contacts) {
-                        return ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: contacts.length,
-                          itemBuilder: (_, index) {
-                            final contact = contacts[index];
-                            return ListTile(
-                              onTap: () {
-                                Navigator.of(context).pushNamed('/contacts/update');
-                              },
-                              title: Text(contact.name),
-                              subtitle: Text(contact.email),
+                        return RefreshIndicator(
+                          onRefresh: () async {
+                            context.read<ContactListBloc>().add(
+                              const ContactListEvent.findAll()
                             );
-                          }
+                          },
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: contacts.length,
+                            itemBuilder: (_, index) {
+                              final contact = contacts[index];
+                              return ListTile(
+                                onTap: () {
+                                  Navigator.of(context).pushNamed('/contacts/update');
+                                },
+                                title: Text(contact.name),
+                                subtitle: Text(contact.email),
+                              );
+                            }
+                          ),
                         );
                       }, 
                     ),

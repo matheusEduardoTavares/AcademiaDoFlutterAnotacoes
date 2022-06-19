@@ -35,7 +35,7 @@ class HomePage extends StatelessWidget {
               ),
               ButtonCard(
                 onTap: () {
-                  Navigator.of(context).pushNamed('/bloc/example');
+                  Navigator.of(context).pushNamed('/contacts/cubit/list');
                 },
                 title: 'Contact Cubit',
               ),

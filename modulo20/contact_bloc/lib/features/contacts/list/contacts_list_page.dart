@@ -95,6 +95,13 @@ class ContactsListPage extends StatelessWidget {
                                     const ContactListEvent.findAll()
                                   );
                                 },
+                                onLongPress: () {
+                                  context.read<ContactListBloc>().add(
+                                    ContactListEvent.delete(
+                                      model: contact,
+                                    )
+                                  );
+                                },
                                 title: Text(contact.name),
                                 subtitle: Text(contact.email),
                               );

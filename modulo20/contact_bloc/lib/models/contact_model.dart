@@ -30,4 +30,7 @@ class ContactModel {
   String toJson() => json.encode(toMap());
 
   factory ContactModel.fromJson(String source) => ContactModel.fromMap(json.decode(source));
+
+  @override
+  String toString() => 'ContactModel(id: $id, name: $name, email: $email)';
 }

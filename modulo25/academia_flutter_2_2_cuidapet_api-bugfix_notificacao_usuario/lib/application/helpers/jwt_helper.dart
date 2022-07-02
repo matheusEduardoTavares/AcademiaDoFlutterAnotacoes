@@ -26,6 +26,7 @@ class JwtHelper {
   static String refreshToken(String accessToken) {
     
     final expiry = int.parse(env['refresh_token_expire_days']!);
+    // ignore: unused_local_variable
     final notBefore = int.parse(env['refresh_token_not_before_hours']!);
 
     final claimSet = JwtClaim(

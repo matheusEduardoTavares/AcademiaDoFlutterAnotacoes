@@ -103,6 +103,8 @@ class ChatRepository implements IChatRepository {
     } finally {
       await conn?.close();
     }
+
+    return null;
   }
 
   @override

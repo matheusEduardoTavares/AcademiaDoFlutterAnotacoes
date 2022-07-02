@@ -14,7 +14,7 @@ class MockResultRow extends Mock implements ResultRow {
   MockResultRow(this.fields, [this.blobFields]);
 
   @override
-  dynamic operator [](dynamic? index) {
+  dynamic operator [](dynamic index) {
     if(index is int) {
       return values?[index];
     } else {

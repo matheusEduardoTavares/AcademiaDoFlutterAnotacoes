@@ -8,7 +8,6 @@ import 'package:shelf/shelf.dart';
 import 'package:test/test.dart';
 
 import '../../../core/fixture/fixture_reader.dart';
-import '../../../core/log/mock_logger.dart';
 import '../../../core/shelf/mock_shelf_request.dart';
 import 'mock/mock_user_service.dart';
 

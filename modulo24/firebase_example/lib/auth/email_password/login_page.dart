@@ -1,31 +1,51 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class RegisterPage extends StatefulWidget {
+class LoginPage extends StatefulWidget {
 
-  const RegisterPage({ Key? key }) : super(key: key);
+  const LoginPage({ Key? key }) : super(key: key);
 
   @override
-  State<RegisterPage> createState() => _RegisterPageState();
+  State<LoginPage> createState() => _LoginPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class _LoginPageState extends State<LoginPage> {
   final emailEC = TextEditingController();
   final passwordEC = TextEditingController();
 
-  Future<void> registerUser() async {
-    final credencial = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+  Future<void> loginUser() async {
+    final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
       email: emailEC.text, 
       password: passwordEC.text,
     );
 
-    credencial.user?.sendEmailVerification();
+    // credential.user?.sendEmailVerification();
+
+    // print(credential.user?.email);
+    // print(credential.user?.emailVerified);
+
+    final user = credential.user;
+    var message = '';
+
+    if (user != null && !user.emailVerified) {
+      message = 'E-mail não confirmado, por favor verifique o seu e-mail';
+    }
+    else {
+      message = 'E-mail validado com sucesso';
+    }
+
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message)
+      ),
+    );
   }
 
    @override
    Widget build(BuildContext context) {
        return Scaffold(
-           appBar: AppBar(title: const Text('Cadastro de usuário'),),
+           appBar: AppBar(title: const Text('Login de usuário'),),
            body: SingleChildScrollView(
              child: Padding(
                padding: const EdgeInsets.all(8.0),
@@ -44,8 +64,8 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: registerUser, 
-                    child: const Text('Registrar')
+                    onPressed: loginUser, 
+                    child: const Text('Login Usuário')
                   )
                 ],
                ),

@@ -34,6 +34,15 @@ class _LoginPageState extends State<LoginPage> {
       message = 'E-mail validado com sucesso';
     }
 
+    ///Atualizando dados do usuário via firebase:
+    // user.updateEmail
+    // user.updatePhotoURL;
+    // user.updatePassword;
+    // await user?.updateDisplayName('Usuário Teste');
+    print(credential.user?.displayName);
+    print(credential.user?.email);
+    print(credential.user?.emailVerified);
+
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(

@@ -39,9 +39,9 @@ class _LoginPageState extends State<LoginPage> {
     // user.updatePhotoURL;
     // user.updatePassword;
     // await user?.updateDisplayName('Usuário Teste');
-    print(credential.user?.displayName);
-    print(credential.user?.email);
-    print(credential.user?.emailVerified);
+    debugPrint(credential.user?.displayName);
+    debugPrint(credential.user?.email);
+    debugPrint(credential.user?.emailVerified.toString());
 
     if (!mounted) return;
     ScaffoldMessenger.of(context).showSnackBar(
